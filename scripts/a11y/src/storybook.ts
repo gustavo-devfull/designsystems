@@ -17,7 +17,8 @@ interface PreviewWindow {
 const RENDER_TIMEOUT = 20_000;
 
 /**
- * Waits until Storybook has finished rendering the story *and* its play function, so interaction
+ * Waits until Storybook has finished rendering the story *and* its play function (phase
+ * "finished" in Storybook 9; older versions say "completed"), so interaction
  * tests run and portalled UI (dialogs, tooltips) that a play function opens is present for axe.
  */
 async function waitForStory(page: Page): Promise<string | undefined> {
@@ -26,7 +27,12 @@ async function waitForStory(page: Page): Promise<string | undefined> {
       () => {
         const phase = (window as unknown as PreviewWindow).__STORYBOOK_PREVIEW__?.currentRender
           ?.phase;
-        return phase === "completed" || phase === "errored" || phase === "aborted";
+        return (
+          phase === "finished" ||
+          phase === "completed" ||
+          phase === "errored" ||
+          phase === "aborted"
+        );
       },
       undefined,
       { timeout: RENDER_TIMEOUT },
@@ -36,11 +42,13 @@ async function waitForStory(page: Page): Promise<string | undefined> {
   }
   const failed = await page.evaluate(() => {
     const phase = (window as unknown as PreviewWindow).__STORYBOOK_PREVIEW__?.currentRender?.phase;
-    const display = document.querySelector(".sb-errordisplay");
-    const visible = document.body.classList.contains("sb-show-errordisplay");
-    return phase !== "completed" || visible
-      ? (display?.textContent ?? `render phase: ${phase ?? "unknown"}`).trim()
-      : undefined;
+    const finished = phase === "finished" || phase === "completed";
+    // The error template (.sb-errordisplay) is always in the DOM; only trust it when it is shown.
+    const shown = document.body.classList.contains("sb-show-errordisplay");
+    if (finished && !shown) return undefined;
+    const title = document.querySelector("#error-message")?.textContent ?? "";
+    const stack = document.querySelector("#error-stack")?.textContent ?? "";
+    return (shown ? `${title} ${stack}` : `render phase: ${phase ?? "unknown"}`).trim();
   });
   return failed?.slice(0, 400);
 }
