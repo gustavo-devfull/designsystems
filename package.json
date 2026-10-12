@@ -2,7 +2,7 @@
   "name": "design-system",
   "private": true,
   "version": "0.0.0",
-  "description": "Sette Design System monorepo: Figma Variables → tokens → Tailwind → React components.",
+  "description": "Sette Design System monorepo: Figma Variables \u2192 tokens \u2192 Tailwind \u2192 React components.",
   "type": "module",
   "packageManager": "pnpm@10.28.0",
   "engines": {
@@ -20,7 +20,9 @@
     "test": "pnpm -r test",
     "a11y": "pnpm --filter @sette/ui test:a11y",
     "figma:sync": "pnpm --filter @design-system/figma-sync sync",
-    "clean": "pnpm -r exec rm -rf dist .turbo coverage"
+    "clean": "pnpm -r exec rm -rf dist .turbo coverage",
+    "pretypecheck": "pnpm tokens:build",
+    "pretest": "pnpm tokens:build"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

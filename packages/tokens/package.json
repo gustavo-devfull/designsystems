@@ -30,7 +30,7 @@
     "test": "pnpm build && node --test build/*.test.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/node": "catalog:",
     "style-dictionary": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
