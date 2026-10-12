@@ -1,0 +1,49 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as TextareaStories from "../../../../packages/ui/src/components/Textarea/Textarea.stories";
+import { TokenUsage } from "../docs/TokenUsage";
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+Campo de texto de várias linhas. Mesma API de campo que `Input` (`label`, `helperText`, `error`, `required`, `disabled`), com `rows` e redimensionamento vertical.
+
+<Canvas of={TextareaStories.Default} />
+
+## Usage
+
+```tsx
+<Textarea label="Mensagem" rows={6} helperText="Máximo de 500 caracteres." />
+```
+
+Use para texto livre mais longo que uma linha (comentários, descrições). Para valores curtos, use `Input`.
+
+## API
+
+<Controls of={TextareaStories.Default} />
+
+`ref` e atributos nativos (`rows`, `maxLength`, `name`…) vão para o `<textarea>`; `className` ajusta o wrapper e `textareaClassName` o elemento.
+
+## States
+
+<Canvas of={TextareaStories.WithHelperText} />
+<Canvas of={TextareaStories.Error} />
+<Canvas of={TextareaStories.Disabled} />
+<Canvas of={TextareaStories.Rows} />
+<Canvas of={TextareaStories.LongContent} />
+<Canvas of={TextareaStories.DarkTheme} />
+
+## Accessibility
+
+- Mesma ligação `label` / `aria-describedby` / `aria-invalid` do `Input`.
+- Redimensionável apenas na vertical (`resize-y`) para não quebrar layouts.
+- Ao usar contador de caracteres, associe-o ao campo com `aria-describedby` e evite anunciar a cada tecla.
+
+## Do & Don't
+
+- **Do**: dimensione `rows` para o conteúdo esperado.
+- **Don't**: não use `Textarea` para valores curtos (nome, email).
+
+## Design tokens utilizados
+
+<TokenUsage component="input" />

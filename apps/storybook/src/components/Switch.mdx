@@ -1,0 +1,41 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as SwitchStories from "../../../../packages/ui/src/components/Switch/Switch.stories";
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+Ajuste liga/desliga que **entra em vigor imediatamente**. Se o valor só é aplicado ao enviar um formulário, use `Checkbox`.
+
+<Canvas of={SwitchStories.Default} />
+
+## Usage
+
+```tsx
+<Switch label="Notificações" checked={enabled} onChange={(e) => save(e.target.checked)} />
+```
+
+## API
+
+<Controls of={SwitchStories.Default} />
+
+## States
+
+<Canvas of={SwitchStories.On} />
+<Canvas of={SwitchStories.WithHelperText} />
+<Canvas of={SwitchStories.Error} />
+<Canvas of={SwitchStories.Disabled} />
+<Canvas of={SwitchStories.LongContent} />
+<Canvas of={SwitchStories.DarkTheme} />
+
+## Accessibility
+
+- `<input type="checkbox" role="switch">`: anunciado como "interruptor, ligado/desligado". **Espaço** alterna.
+- O estado é transmitido por posição **e** cor; a trilha desligada usa `color.border.input` (≥ 3:1) e o botão contrasta com a trilha nos dois estados.
+- A transição usa o token de duração, zerado em `prefers-reduced-motion`.
+- O rótulo descreve o que é controlado, não o estado ("Notificações", não "Ligar notificações").
+
+## Do & Don't
+
+- **Do**: efeito imediato e reversível.
+- **Don't**: não use para ações destrutivas nem em formulários com botão "Salvar".

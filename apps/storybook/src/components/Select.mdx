@@ -1,0 +1,55 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as SelectStories from "../../../../packages/ui/src/components/Select/Select.stories";
+import { TokenUsage } from "../docs/TokenUsage";
+
+<Meta of={SelectStories} />
+
+# Select
+
+Lista de opções de escolha única, baseada no `<select>` **nativo**.
+
+<Canvas of={SelectStories.Default} />
+
+## Por que nativo
+
+Teclado (setas, digitação para saltar), leitores de tela, seletor nativo no mobile e envio em formulários vêm de graça e são mais confiáveis que um combobox customizado. Quando precisar de busca, múltipla escolha ou itens ricos, use um padrão de **combobox** dedicado (Roadmap, Fase 4).
+
+## Usage
+
+```tsx
+<Select label="País" placeholder="Escolha um país" required>
+  <option value="br">Brasil</option>
+  <option value="pt">Portugal</option>
+</Select>
+```
+
+- `placeholder` cria uma primeira opção vazia (`value=""`), selecionada por padrão; com `required`, o navegador valida a escolha.
+- Opções são `<option>` / `<optgroup>` comuns, passadas como `children`.
+
+## API
+
+<Controls of={SelectStories.Default} />
+
+## Sizes e States
+
+<Canvas of={SelectStories.Sizes} />
+<Canvas of={SelectStories.WithHelperText} />
+<Canvas of={SelectStories.Error} />
+<Canvas of={SelectStories.Disabled} />
+<Canvas of={SelectStories.LongContent} />
+<Canvas of={SelectStories.DarkTheme} />
+
+## Accessibility
+
+- Elemento nativo: papel `combobox`/lista, navegação por setas, `Home`/`End` e digitação para saltar fornecidos pelo navegador.
+- Mesma ligação de `label`, ajuda, erro e `required` dos demais campos.
+- O chevron é decorativo (`aria-hidden`, `pointer-events-none`).
+
+## Do & Don't
+
+- **Do**: use quando houver 4+ opções e apenas uma escolha. Para 2–3 opções visíveis, prefira `RadioGroup`.
+- **Don't**: não use `Select` para navegação ou ações.
+
+## Design tokens utilizados
+
+<TokenUsage component="input" />

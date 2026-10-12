@@ -1,0 +1,50 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as RadioStories from "../../../../packages/ui/src/components/Radio/Radio.stories";
+
+<Meta of={RadioStories} />
+
+# Radio / RadioGroup
+
+Escolha única entre poucas opções visíveis. `RadioGroup` renderiza um `<fieldset role="radiogroup">` com `<legend>`; cada `Radio` é uma opção.
+
+<Canvas of={RadioStories.Default} />
+
+## Usage
+
+```tsx
+<RadioGroup legend="Plano" defaultValue="free" onValueChange={setPlan} error={errors.plan}>
+  <Radio value="free" label="Free" />
+  <Radio value="pro" label="Pro" helperText="Cobrança mensal" />
+</RadioGroup>
+```
+
+`Radio` só funciona dentro de um `RadioGroup` (compartilham `name`, valor e estado de erro/desabilitado). Fora dele, lança um erro explícito.
+
+## API
+
+<Controls of={RadioStories.Default} />
+
+## Layouts e States
+
+<Canvas of={RadioStories.Horizontal} />
+<Canvas of={RadioStories.WithHelperText} />
+<Canvas of={RadioStories.Required} />
+<Canvas of={RadioStories.Error} />
+<Canvas of={RadioStories.Disabled} />
+<Canvas of={RadioStories.LongContent} />
+<Canvas of={RadioStories.DarkTheme} />
+
+## Accessibility
+
+- `role="radiogroup"` + `<legend>` dão nome ao grupo; `aria-required`, `aria-invalid` e `aria-describedby` ficam no grupo (únicos lugares onde ARIA os suporta para radios).
+- Teclado nativo (mesmo `name`): **Tab** entra no grupo uma vez, **setas** movem e selecionam, **Shift+Tab** sai.
+- Grupo `disabled` desabilita todas as opções; uma opção também pode ser desabilitada individualmente.
+
+## Do & Don't
+
+- **Do**: use 2–5 opções, com uma pré-selecionada quando houver um padrão seguro.
+- **Don't**: não use radios para ações nem para listas longas (use `Select`).
+
+## Design tokens utilizados
+
+Tokens semantic (`border-border-input`, `bg-action-primary`, `rounded-pill`, `outline-focus-ring`, `text-feedback-error`).
