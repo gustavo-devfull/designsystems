@@ -1,0 +1,42 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Divider/Divider.stories";
+
+<Meta of={Stories} />
+
+# Divider
+
+Linha que separa conteúdo. Horizontal ou vertical.
+
+<Canvas of={Stories.Horizontal} />
+
+## Usage
+
+```tsx
+<Divider />                           {/* separador semântico */}
+<Divider orientation="vertical" />    {/* dentro de um flex */}
+<Divider decorative />                {/* só visual */}
+```
+
+## API
+
+<Controls of={Stories.Horizontal} />
+
+## Variants
+
+<Canvas of={Stories.Vertical} />
+<Canvas of={Stories.Decorative} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- Horizontal é um `<hr>` real (papel `separator`). Vertical é `div[role="separator"][aria-orientation="vertical"]`, pois `<hr>` não pode ser vertical.
+- Se um título ou o espaçamento já separam o conteúdo, use `decorative`: o divisor sai da árvore de acessibilidade (evita ruído para leitores de tela).
+
+## Do & Don't
+
+- **Do**: use `decorative` quando houver um heading logo depois.
+- **Don't**: não use para criar espaço; use `gap`/`margin` com tokens de spacing.
+
+## Design tokens utilizados
+
+`border.default` (via `bg-border-default`).

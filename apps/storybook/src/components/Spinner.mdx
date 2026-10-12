@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Spinner/Spinner.stories";
+
+<Meta of={Stories} />
+
+# Spinner
+
+Indicador de carregamento indeterminado.
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<Spinner label="Carregando resultados" />   {/* anunciado (role="status") */}
+<Spinner />                                  {/* decorativo, dentro de um controle com aria-busy */}
+```
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Variants
+
+<Canvas of={Stories.Sizes} />
+<Canvas of={Stories.Decorative} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- Com `label`: `role="status"` e texto só para leitores de tela. Sem `label`: `aria-hidden` (use dentro de controles que já expõem `aria-busy`, como o `Button loading`).
+- Sob `prefers-reduced-motion`, a rotação fica mais lenta em vez de parar, para que "ocupado" continue perceptível.
+- Herda `currentColor`: defina a cor com classes como `text-action-primary`.
+
+## Design tokens utilizados
+
+`currentColor` (herda do contexto), `size-4|5|6` (derivados de `spacing.1`).

@@ -1,0 +1,57 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Card/Card.stories";
+
+<Meta of={Stories} />
+
+# Card
+
+Superfície que agrupa conteúdo relacionado. É **composável**: monte com `CardHeader`, `CardTitle`, `CardDescription`, `CardContent` e `CardFooter`, usando só o que precisar.
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<Card as="article" variant="elevated">
+  <CardHeader>
+    <CardTitle as="h2">Plano Pro</CardTitle>
+    <CardDescription>Para times em crescimento</CardDescription>
+  </CardHeader>
+  <CardContent>…</CardContent>
+  <CardFooter>
+    <Button size="sm">Assinar</Button>
+  </CardFooter>
+</Card>
+```
+
+## API
+
+<Controls of={Stories.Default} />
+
+| Parte             | Papel                                                     |
+| ----------------- | --------------------------------------------------------- |
+| `Card`            | Superfície. `as`: `div` · `section` · `article` · `aside` |
+| `CardHeader`      | Agrupa título e descrição                                 |
+| `CardTitle`       | Título; `as` define o **nível de heading** (padrão `h3`)  |
+| `CardDescription` | Texto de apoio                                            |
+| `CardContent`     | Corpo                                                     |
+| `CardFooter`      | Ações                                                     |
+
+## Variants e exemplos
+
+<Canvas of={Stories.Elevated} />
+<Canvas of={Stories.ContentOnly} />
+<Canvas of={Stories.WithBadge} />
+<Canvas of={Stories.LongContent} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- Escolha o nível do título pela **estrutura da página** (`as="h2"`), nunca pelo tamanho visual.
+- Use `as="section"` com `aria-label`/`aria-labelledby` quando o card for uma região navegável, ou `as="article"` para itens independentes.
+- O Card não é interativo. Se o card inteiro precisa ser clicável, use um link no título; evite `onClick` em `div`.
+- Texto e bordas usam tokens validados em contraste nos dois temas.
+
+## Design tokens utilizados
+
+`background.elevated`, `border.default`, `radius.surface`, `elevation.mid`, `text.primary`, `text.secondary`, `spacing.lg`.

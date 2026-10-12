@@ -3,7 +3,20 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { compile } from "tailwindcss";
+import { Alert } from "../components/Alert";
+import { Avatar } from "../components/Avatar";
+import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/Card";
+import { Divider } from "../components/Divider";
+import { IconButton } from "../components/IconButton";
 import { Checkbox } from "../components/Checkbox";
 import { Input } from "../components/Input";
 import { Radio, RadioGroup } from "../components/Radio";
@@ -40,6 +53,43 @@ function renderGallery(): string[] {
       )}
       <Button loading>x</Button>
       <Button disabled>x</Button>
+      {(["primary", "secondary", "outline", "ghost", "danger"] as const).flatMap((variant) =>
+        (["sm", "md", "lg"] as const).map((size) => (
+          <IconButton key={`${variant}${size}`} aria-label="x" variant={variant} size={size}>
+            <i />
+          </IconButton>
+        )),
+      )}
+      <IconButton aria-label="x" loading>
+        <i />
+      </IconButton>
+      {(["neutral", "info", "success", "warning", "error"] as const).flatMap((variant) =>
+        (["sm", "md"] as const).map((size) => (
+          <Badge key={`${variant}${size}`} variant={variant} size={size}>
+            x
+          </Badge>
+        )),
+      )}
+      {(["info", "success", "warning", "error"] as const).map((variant) => (
+        <Alert key={variant} variant={variant} title="t" onDismiss={() => undefined}>
+          d
+        </Alert>
+      ))}
+      {(["outline", "elevated"] as const).map((variant) => (
+        <Card key={variant} variant={variant}>
+          <CardHeader>
+            <CardTitle>t</CardTitle>
+            <CardDescription>d</CardDescription>
+          </CardHeader>
+          <CardContent>c</CardContent>
+          <CardFooter>f</CardFooter>
+        </Card>
+      ))}
+      {(["sm", "md", "lg", "xl"] as const).map((size) => (
+        <Avatar key={size} name="Ada Lovelace" size={size} />
+      ))}
+      <Divider />
+      <Divider orientation="vertical" />
       <Spinner label="x" size="sm" />
       <Spinner size="lg" />
       {(["sm", "md", "lg"] as const).map((size) => (

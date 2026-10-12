@@ -13,6 +13,26 @@ export type { RadioGroupProps, RadioProps } from "./components/Radio";
 export { Switch } from "./components/Switch";
 export type { SwitchProps } from "./components/Switch";
 export type { ControlSize, FieldBaseProps } from "./components/Field";
+export { IconButton } from "./components/IconButton";
+export type { IconButtonProps, IconButtonSize, IconButtonVariant } from "./components/IconButton";
+export { Badge, badgeVariants } from "./components/Badge";
+export type { BadgeProps, BadgeSize, BadgeVariant } from "./components/Badge";
+export { Alert, alertVariants } from "./components/Alert";
+export type { AlertProps, AlertVariant } from "./components/Alert";
+export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  cardVariants,
+} from "./components/Card";
+export type { CardProps, CardSectionProps, CardTitleProps, CardVariant } from "./components/Card";
+export { Avatar, avatarVariants } from "./components/Avatar";
+export type { AvatarProps, AvatarSize } from "./components/Avatar";
+export { Divider } from "./components/Divider";
+export type { DividerProps } from "./components/Divider";
 export { Spinner, spinnerVariants } from "./components/Spinner";
 export type { SpinnerProps, SpinnerSize } from "./components/Spinner";
 export { ThemeProvider, useTheme } from "./theme";
