@@ -8,7 +8,7 @@ interface Scenario {
 }
 
 const scenarios: Scenario[] = [
-  { name: "Overview", run: async () => undefined },
+  { name: "Overview", run: () => Promise.resolve() },
   {
     name: "Team tab",
     run: async (page) => {

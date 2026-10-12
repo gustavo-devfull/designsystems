@@ -59,7 +59,7 @@ export async function runAxe(page: Page, disabledRules: string[] = []): Promise<
     impact: v.impact ?? "minor",
     help: v.help,
     helpUrl: v.helpUrl,
-    target: String(v.nodes[0]?.target.join(" ") ?? ""),
+    target: v.nodes[0]?.target.join(" ") ?? "",
     detail: (v.nodes[0]?.failureSummary ?? "").split("\n").slice(1).join(" ").trim(),
     nodes: v.nodes.length,
   }));

@@ -28,8 +28,8 @@ const failOn = values["fail-on"] as Impact;
 if (!IMPACT_ORDER.includes(failOn)) {
   throw new Error(`--fail-on must be one of ${IMPACT_ORDER.join(", ")}`);
 }
-const themes = (values.themes ?? "light,dark").split(",");
-const target = values.target ?? "all";
+const themes = values.themes.split(",");
+const target = values.target;
 const concurrency = Number(values.concurrency);
 
 const browser = await chromium.launch();
@@ -40,7 +40,7 @@ try {
   await selfTest(await browser.newPage());
   console.log("Self-test: axe detects known violations ✔");
   if (target === "all" || target === "storybook") {
-    const server = await serve(values.storybook as string);
+    const server = await serve(values.storybook);
     servers.push(server);
     console.log(`Storybook: ${server.url}`);
     results.push(
@@ -54,7 +54,7 @@ try {
     );
   }
   if (target === "all" || target === "playground") {
-    const server = await serve(values.playground as string);
+    const server = await serve(values.playground);
     servers.push(server);
     console.log(`Playground: ${server.url}`);
     results.push(...(await sweepPlayground({ browser, baseUrl: server.url, themes })));
@@ -64,5 +64,5 @@ try {
   await Promise.all(servers.map((s) => s.close()));
 }
 
-writeFileSync(values.out as string, JSON.stringify({ failOn, themes, results }, null, 2));
+writeFileSync(values.out, JSON.stringify({ failOn, themes, results }, null, 2));
 process.exit(printSummary(results, failOn) ? 0 : 1);
