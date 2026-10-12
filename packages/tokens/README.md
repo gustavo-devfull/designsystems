@@ -35,3 +35,19 @@ pnpm --filter @design-system/tokens test
 ```
 
 Adicionar um tema (Brand A): criar `semantic/color.brand-a.json`, registrá-lo em `build/config.ts` (`THEMES`).
+
+## Tailwind (v4)
+
+`dist/tailwind.css` é gerado a partir dos tokens (nunca editado à mão) e consumido assim:
+
+```css
+@import "tailwindcss";
+@import "@design-system/tokens/tokens.css";
+@import "@design-system/tokens/tailwind.css";
+```
+
+- Usa `@theme inline`: utilitários emitem `var(--ds-…)` direto; sem isso, temas aninhados quebram.
+- Zera a paleta/escalas padrão (`--color-*: initial` etc.): `bg-blue-500` e `bg-white` não geram CSS.
+- Só semantic e component tokens viram utilitários: `bg-action-primary`, `text-text-primary`,
+  `border-border-default`, `rounded-control`, `p-md`, `shadow-mid`, `bg-button-background-primary`.
+- Coberto por `build/tailwind.test.ts`, que compila com o próprio compilador do Tailwind.

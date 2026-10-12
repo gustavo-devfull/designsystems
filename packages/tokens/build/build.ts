@@ -3,6 +3,8 @@ import path from "node:path";
 import StyleDictionary from "style-dictionary";
 import type { File, TransformedToken } from "style-dictionary/types";
 import { DIST, MOTION_TOKENS, PREFIX, THEMES, files, type Theme } from "./config.ts";
+import { loadTokens } from "./dtcg.ts";
+import { renderTailwindTheme, type ResolvedToken } from "./tailwind.ts";
 
 const PARTS = path.join(DIST, ".parts");
 
@@ -115,12 +117,14 @@ writeFileSync(path.join(DIST, "tokens.css"), css);
 rmSync(PARTS, { recursive: true, force: true });
 
 // ── 2. JSON + TS (resolved, per theme) ────────────────────────────────────────────────────
-interface ResolvedToken {
-  value: string | number;
-  type: string;
-  cssVar: string;
-  description?: string;
-}
+const layerOf = new Map<string, ResolvedToken["layer"]>([
+  ...[...loadTokens(files.primitive).keys()].map((k) => [k, "primitive"] as const),
+  ...[...loadTokens(files.shared).keys()].map((k) => [k, "semantic"] as const),
+  ...THEMES.flatMap((t) =>
+    [...loadTokens(files.mode(t)).keys()].map((k) => [k, "semantic"] as const),
+  ),
+  ...[...loadTokens(files.component).keys()].map((k) => [k, "component"] as const),
+]);
 
 const dotted = (t: TransformedToken) => t.path.filter((p) => p !== "$root").join(".");
 
@@ -131,7 +135,9 @@ async function resolveTheme(theme: Theme): Promise<Record<string, ResolvedToken>
   const { allTokens } = await sd.getPlatformTokens("css");
   const out: Record<string, ResolvedToken> = {};
   for (const t of allTokens) {
+    const key = t.path.join(".");
     out[dotted(t)] = {
+      layer: layerOf.get(key) ?? "primitive",
       value: t.$value as string | number,
       type: t.$type ?? "",
       cssVar: `--${t.name}`,
@@ -179,5 +185,6 @@ export function cssVar(name: TokenName): string {
 }
 `;
 writeFileSync(path.join(DIST, "tokens.ts"), ts);
+writeFileSync(path.join(DIST, "tailwind.css"), renderTailwindTheme(resolved.light));
 
 console.log(`✔ Built ${Object.keys(vars).length} tokens × ${THEMES.length} themes → dist/`);
