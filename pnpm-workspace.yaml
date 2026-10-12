@@ -4,6 +4,10 @@ packages:
   - scripts/*
 
 catalog:
+  "@changesets/cli": ^2.29.7
+  "@arethetypeswrong/cli": ^0.18.2
+  publint: ^0.3.12
+  esbuild: ^0.25.9
   playwright: ~1.56.1
   "@radix-ui/react-dialog": ^1.1.15
   "@radix-ui/react-tabs": ^1.1.13

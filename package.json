@@ -27,9 +27,14 @@
     "build:packages": "pnpm -r --workspace-concurrency=1 --filter './packages/*' build",
     "playground": "pnpm build:packages && pnpm --filter @design-system/playground dev",
     "a11y:unit": "pnpm -r test:a11y",
-    "figma:check": "pnpm --filter @design-system/figma-sync check"
+    "figma:check": "pnpm --filter @design-system/figma-sync check",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "release": "pnpm build:packages && changeset publish",
+    "check:package": "pnpm --filter @sette/ui check:package"
   },
   "devDependencies": {
+    "@changesets/cli": "catalog:",
     "@eslint/js": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-jsx-a11y": "catalog:",

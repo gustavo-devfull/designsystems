@@ -29,6 +29,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # `changeset status` compares against origin/main
       - uses: pnpm/action-setup@v4 # version comes from "packageManager"
       - uses: actions/setup-node@v4
         with:
@@ -43,8 +45,12 @@ jobs:
         run: pnpm lint
       - name: Typecheck
         run: pnpm typecheck
-      - name: Test (Vitest + Testing Library + axe, tokens, a11y gate logic)
+      - name: Test (Vitest + Testing Library + axe, tokens, Figma sync, a11y gate logic)
         run: pnpm test
+      - name: Changeset present for changes to published code
+        # Dependabot bumps are not user-facing API changes; maintainers batch them into a release changeset.
+        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
+        run: pnpm changeset status --since=origin/main
 
   # ── 2. Build everything that ships or is published for review ─────────────────────────────
   build:
@@ -64,6 +70,10 @@ jobs:
         run: pnpm build
       - name: Build Storybook
         run: pnpm build-storybook
+      - name: Package contract (publint + are-the-types-wrong)
+        run: pnpm check:package
+      - name: Consumer smoke test (pack → install in an empty project → SSR, exports, one React, tree-shaking, nodenext types)
+        run: pnpm --filter @sette/ui test:package
       - name: Upload static sites for the accessibility gate
         uses: actions/upload-artifact@v4
         with:

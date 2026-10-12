@@ -49,7 +49,8 @@ pnpm --filter @design-system/a11y sweep --filter components-dialog --fail-on mod
 
 - **Chromatic** (visual regression): `.github/workflows/chromatic.yml` — manual trigger, guarded by the repository
   variable `CHROMATIC_ENABLED` and the secret `CHROMATIC_PROJECT_TOKEN`. Instructions are in the file header.
-- **Changesets / npm publishing**: added with the packaging step.
+- **Changesets / npm publishing**: `.github/workflows/release.yml` — inactive until `RELEASE_ENABLED=true` (see `docs/releasing.md`).
+- **Figma sync**: `.github/workflows/figma-sync.yml` — inactive until `FIGMA_SYNC_ENABLED=true` (see `scripts/figma-sync/README.md`).
 - **Dependabot**: weekly, grouped by ecosystem (Storybook, Radix, Tailwind, test tooling, Actions).
 
 ## Known advisory finding

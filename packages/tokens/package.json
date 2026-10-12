@@ -34,5 +34,6 @@
     "style-dictionary": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
-  }
+  },
+  "private": true
 }
