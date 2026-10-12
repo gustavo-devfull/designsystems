@@ -37,7 +37,9 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(funct
     <RadixTabs.Trigger
       ref={ref}
       className={cn(
-        "-mb-px inline-flex h-control-md items-center justify-center whitespace-nowrap border-b-2 border-solid border-transparent px-md font-sans text-md font-medium",
+        // No preflight: reset the UA button background/border explicitly (a light UA background made
+        // light text unreadable in the dark theme).
+        "-mb-px inline-flex h-control-md items-center justify-center whitespace-nowrap border-0 border-b-2 border-solid border-transparent bg-transparent px-md font-sans text-md font-medium",
         "text-text-secondary transition-colors hover:text-text-primary",
         "data-[state=active]:border-b-action-primary data-[state=active]:text-text-primary",
         "outline-focus-ring focus-visible:outline-2 focus-visible:-outline-offset-2",

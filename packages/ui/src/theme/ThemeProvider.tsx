@@ -20,13 +20,17 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const DARK_QUERY = "(prefers-color-scheme: dark)";
 
+/** `matchMedia` is missing in some test/embedded environments; fall back to "light" there. */
+const canMatchMedia = () => typeof window.matchMedia === "function";
+
 function subscribeToSystemTheme(notify: () => void): () => void {
+  if (!canMatchMedia()) return () => undefined;
   const query = window.matchMedia(DARK_QUERY);
   query.addEventListener("change", notify);
   return () => query.removeEventListener("change", notify);
 }
 const getSystemTheme = (): ResolvedTheme =>
-  window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
+  canMatchMedia() && window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
 const getServerTheme = (): ResolvedTheme => "light";
 
 function readStoredPreference(key: string | undefined): ThemePreference | undefined {

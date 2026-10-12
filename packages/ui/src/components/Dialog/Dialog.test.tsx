@@ -181,6 +181,16 @@ describe("Dialog", () => {
     expect(ref.current).not.toHaveClass("bg-background-elevated");
   });
 
+  it("does not introduce extra landmarks (a <header> inside a dialog would be a second banner)", () => {
+    render(
+      <>
+        <header>Page header</header>
+        <Example defaultOpen />
+      </>,
+    );
+    expect(screen.getByRole("dialog").querySelector("header")).toBeNull();
+  });
+
   it("a11y: an open dialog has no axe violations", async () => {
     render(<Example description="Deleting removes all of its data." defaultOpen />);
     expect(await axe(document.body)).toHaveNoViolations();

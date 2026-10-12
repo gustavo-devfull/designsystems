@@ -104,6 +104,17 @@ describe("ThemeProvider", () => {
     expect(document.documentElement).not.toHaveAttribute("data-theme");
   });
 
+  it("falls back to light when matchMedia is unavailable", () => {
+    // @ts-expect-error simulate an environment without matchMedia
+    window.matchMedia = undefined;
+    render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId("state")).toHaveTextContent("system:light");
+  });
+
   it("fails loudly when used outside the provider", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     expect(() => render(<Probe />)).toThrow(/ThemeProvider/);

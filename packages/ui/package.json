@@ -17,6 +17,7 @@
     },
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
   },
   "files": [

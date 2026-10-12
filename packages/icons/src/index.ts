@@ -2,6 +2,7 @@ export { createIcon } from "./createIcon";
 export type { IconProps } from "./createIcon";
 export { AlertTriangleIcon } from "./icons/AlertTriangleIcon";
 export { ArrowRightIcon } from "./icons/ArrowRightIcon";
+export { BellIcon } from "./icons/BellIcon";
 export { CheckIcon } from "./icons/CheckIcon";
 export { ChevronDownIcon } from "./icons/ChevronDownIcon";
 export { CloseIcon } from "./icons/CloseIcon";

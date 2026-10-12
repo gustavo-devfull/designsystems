@@ -46,7 +46,8 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
         className={cn(dialogContentVariants({ size }), className)}
         {...props}
       >
-        <header className="flex flex-col gap-xs pe-xl">
+        {/* A <div>, not <header>: inside a dialog a <header> would count as a second page banner landmark. */}
+        <div className="flex flex-col gap-xs pe-xl">
           <RadixDialog.Title className="text-lg font-semibold text-text-primary">
             {title}
           </RadixDialog.Title>
@@ -55,7 +56,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
               {description}
             </RadixDialog.Description>
           ) : null}
-        </header>
+        </div>
         {children}
         {showClose ? (
           <RadixDialog.Close asChild>

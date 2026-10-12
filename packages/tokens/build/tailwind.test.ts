@@ -60,6 +60,12 @@ describe("tailwind integration", () => {
     assert.match(css, /background-color: var\(--ds-button-background-primary\)/);
   });
 
+  it("provides responsive variants from breakpoint tokens", async () => {
+    const css = await generate("md:p-md", "lg:flex");
+    assert.match(css, /@media \(width >= 48rem\)/);
+    assert.match(css, /@media \(width >= 64rem\)/);
+  });
+
   it("keeps theme variables inline so nested [data-theme] subtrees resolve correctly", async () => {
     const css = await generate("bg-action-primary");
     assert.doesNotMatch(css, /--color-action-primary:/);

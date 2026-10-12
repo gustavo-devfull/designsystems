@@ -23,6 +23,10 @@ export default defineConfig({
         preserveModules: true,
         preserveModulesRoot: "src",
         entryFileNames: "[name].js",
+        // React Server Components: modules that use hooks/state/effects must be client modules.
+        // Only .tsx modules get the directive: `cn` and the *.variants helpers stay callable from
+        // server components.
+        banner: (chunk) => (chunk.facadeModuleId?.endsWith(".tsx") ? '"use client";' : ""),
       },
     },
   },

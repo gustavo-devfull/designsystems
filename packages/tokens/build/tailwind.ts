@@ -14,6 +14,7 @@ const dash = (name: string) => name.replaceAll(".", "-");
  * semantic intent (`bg-action-primary`), never a physical colour (`bg-blue-500`).
  */
 function themeVariable(name: string, t: ResolvedToken): string | undefined {
+  if (name.startsWith("breakpoint.")) return `--breakpoint-${name.slice("breakpoint.".length)}`;
   if (t.layer === "primitive" && !name.startsWith("font.")) return undefined;
   const [root, ...rest] = name.split(".");
   const key = rest.join("-");
@@ -52,7 +53,11 @@ export function renderTailwindTheme(tokens: Record<string, ResolvedToken>): stri
   const lines: string[] = [];
   for (const [name, t] of Object.entries(tokens)) {
     const variable = themeVariable(name, t);
-    if (variable) lines.push(`  ${variable}: var(${t.cssVar});`);
+    // Breakpoints must be literals: media queries cannot read custom properties.
+    if (variable)
+      lines.push(
+        `  ${variable}: ${variable.startsWith("--breakpoint-") ? t.value : `var(${t.cssVar})`};`,
+      );
   }
 
   return `/**
@@ -69,6 +74,7 @@ export function renderTailwindTheme(tokens: Record<string, ResolvedToken>): stri
   --font-*: initial;
   --leading-*: initial;
   --ease-*: initial;
+  --breakpoint-*: initial;
 
   --spacing: var(--ds-spacing-1);
   --default-transition-duration: var(--ds-transition-duration-default);

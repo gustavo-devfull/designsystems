@@ -103,5 +103,21 @@
         "$value": "{motion.easing.standard}"
       }
     }
+  },
+  "breakpoint": {
+    "$type": "dimension",
+    "$description": "Min-width of responsive variants (sm:, md:\u2026). Emitted as literals: media queries cannot use var().",
+    "sm": {
+      "$value": "{spacing.160}"
+    },
+    "md": {
+      "$value": "{spacing.192}"
+    },
+    "lg": {
+      "$value": "{spacing.256}"
+    },
+    "xl": {
+      "$value": "{spacing.320}"
+    }
   }
 }
