@@ -1,0 +1,47 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Avatar/Avatar.stories";
+
+<Meta of={Stories} />
+
+# Avatar
+
+Representa uma pessoa ou entidade com foto ou, na falta dela, iniciais.
+
+<Canvas of={Stories.Initials} />
+
+## Usage
+
+```tsx
+<Avatar name="Ada Lovelace" src={user.photoUrl} />
+<Avatar name="Ada Lovelace" alt="" /> {/* o nome já está escrito ao lado */}
+```
+
+`name` é obrigatório: é a origem das iniciais e do nome acessível. Se a imagem não existir ou falhar ao carregar, as iniciais aparecem automaticamente (e uma nova `src` tenta de novo).
+
+## API
+
+<Controls of={Stories.Initials} />
+
+## Variants
+
+<Canvas of={Stories.WithImage} />
+<Canvas of={Stories.BrokenImage} />
+<Canvas of={Stories.Sizes} />
+<Canvas of={Stories.Decorative} />
+<Canvas of={Stories.LongName} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- Com imagem: `<img alt>` (o nome, ou `alt` customizado). Sem imagem: `role="img"` com `aria-label` e as iniciais ocultas.
+- Quando o nome já aparece em texto ao lado, passe `alt=""`: o avatar fica decorativo e o nome não é lido duas vezes.
+- Iniciais com contraste ≥ 4.5:1 (`text.primary` sobre `background.tertiary`).
+
+## Do & Don't
+
+- **Do**: forneça sempre `name`, mesmo com foto.
+- **Don't**: não use o avatar como botão; envolva-o em um `Button`/link com nome próprio.
+
+## Design tokens utilizados
+
+`background.tertiary`, `text.primary`, `radius.pill`, `font.size.*`.

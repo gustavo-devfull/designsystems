@@ -1,0 +1,63 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as CheckboxStories from "../../../../packages/ui/src/components/Checkbox/Checkbox.stories";
+import { Checkbox } from "@sette/ui";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Seleção independente (liga/desliga) ou parcial (`indeterminate`). Para uma opção entre várias exclusivas, use `RadioGroup`; para um ajuste aplicado na hora, use `Switch`.
+
+<Canvas of={CheckboxStories.Default} />
+
+## Usage
+
+```tsx
+<Checkbox label="Aceito os termos" required error={errors.terms} />
+<Checkbox label="Todos" checked={all} indeterminate={some && !all} onChange={toggleAll} />
+```
+
+Controlado (`checked` + `onChange`) ou não controlado (`defaultChecked`), como um `<input type="checkbox">`.
+
+## API
+
+<Controls of={CheckboxStories.Default} />
+
+## States
+
+<Canvas of={CheckboxStories.Checked} />
+<Canvas of={CheckboxStories.Indeterminate} />
+<Canvas of={CheckboxStories.WithHelperText} />
+<Canvas of={CheckboxStories.Error} />
+<Canvas of={CheckboxStories.Disabled} />
+
+### Selecionar tudo
+
+<Canvas of={CheckboxStories.SelectAll} />
+
+### Conteúdo longo e tema escuro
+
+<Canvas of={CheckboxStories.LongContent} />
+<Canvas of={CheckboxStories.DarkTheme} />
+
+## Accessibility
+
+- O `<input type="checkbox">` real continua sendo o elemento focável e clicável; os ícones são irmãos decorativos.
+- **Espaço** alterna. Clicar no texto do rótulo também alterna (`<label for>`).
+- `indeterminate` usa a propriedade DOM (anunciada como "parcialmente marcado"); o próximo clique a resolve, como no nativo.
+- Contorno de foco ≥ 3:1; borda ≥ 3:1; marca com `color.text.on-action` sobre `action.primary` ≥ 4.5:1.
+- Grupos: envolva em `<fieldset>` com `<legend>`.
+
+## Do & Don't
+
+<DoDont
+  doExample={<Checkbox label="Receber novidades por email" />}
+  doText="Rótulo claro, afirmativo e clicável."
+  dontExample={<Checkbox label="Não quero deixar de não receber emails" />}
+  dontText="Negações duplas confundem."
+/>
+
+## Design tokens utilizados
+
+Usa tokens semantic diretamente (`border-border-input`, `bg-action-primary`, `text-text-on-action`, `rounded-control`, `outline-focus-ring`): não há divergência que justifique component tokens.

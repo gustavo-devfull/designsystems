@@ -1,0 +1,138 @@
+import { Canvas, Controls, Meta, Story } from "@storybook/addon-docs/blocks";
+import * as ButtonStories from "../../../../packages/ui/src/components/Button/Button.stories";
+import { Button } from "@sette/ui";
+import { TrashIcon } from "@design-system/icons";
+import { DoDont } from "../docs/DoDont";
+import { TokenUsage } from "../docs/TokenUsage";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Componente de referência do design system: dispara uma ação. Todo outro componente interativo segue as mesmas convenções (API, tokens, estados, testes).
+
+<Canvas of={ButtonStories.Default} />
+
+## Usage
+
+```tsx
+import { Button } from "@sette/ui";
+
+<Button variant="primary" size="md" loading={false}>
+  Save changes
+</Button>;
+```
+
+Use **Button** para ações (salvar, enviar, abrir um diálogo). Para navegar para outra página, use um link. Use uma única `primary` por região da tela.
+
+| Variant     | Quando usar                                       |
+| ----------- | ------------------------------------------------- |
+| `primary`   | Ação principal da tela ou do diálogo              |
+| `secondary` | Ação de apoio com peso visual moderado            |
+| `outline`   | Ação alternativa em superfícies densas            |
+| `ghost`     | Ação terciária, barras de ferramentas             |
+| `danger`    | Ação destrutiva ou irreversível (confirmar antes) |
+
+## API
+
+<Controls of={ButtonStories.Default} />
+
+Aceita todas as props nativas de `<button>` e `ref`. `type` é `"button"` por padrão — um Button dentro de um `<form>` não submete por acidente.
+
+## Variants
+
+<Canvas of={ButtonStories.Variants} />
+
+## Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+## States
+
+Hover, focus e active vêm do CSS (não são props). `disabled` e `loading` são props.
+
+<Canvas of={ButtonStories.Matrix} />
+
+### Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Loading
+
+Dimensões estáveis: o texto permanece no DOM (invisível) e o spinner é sobreposto, então largura e altura não mudam. O botão continua focável, expõe `aria-busy`/`aria-disabled` e ignora clique, Enter/Espaço e submit.
+
+<Canvas of={ButtonStories.Loading} />
+<Canvas of={ButtonStories.LoadingKeepsSize} />
+
+### Com ícones
+
+Ícones são decorativos (`aria-hidden`); o rótulo de texto dá o nome acessível.
+
+<Canvas of={ButtonStories.WithIcons} />
+
+### Largura total e conteúdo longo
+
+<Canvas of={ButtonStories.FullWidth} />
+<Canvas of={ButtonStories.LongContent} />
+
+### Tema escuro
+
+<Canvas of={ButtonStories.DarkTheme} />
+
+## Accessibility
+
+- Elemento nativo `<button>`: papel, foco e ativação por **Enter** e **Espaço** sem código extra.
+- `:focus-visible` mostra um contorno de 2px (`outline-focus-ring`) com contraste ≥ 3:1 nos dois temas (validado nos tokens).
+- `disabled` usa o atributo nativo: sai da ordem de tabulação e é anunciado como indisponível.
+- `loading` mantém o foco (o usuário não perde a posição) e anuncia `aria-busy="true"`; o nome acessível não muda.
+- Texto sobre o fundo da ação ≥ 4.5:1 em todas as variantes e estados (`color.text.on-action`).
+- Alvo de toque: alturas de 32/40/48px; use `md` ou `lg` em interfaces de toque.
+- Animação do spinner desacelera sob `prefers-reduced-motion`; transições usam tokens zerados nesse modo.
+- Botão só com ícone: use `IconButton` (com `aria-label` obrigatório), não `Button` sem texto.
+
+## Do & Don't
+
+<DoDont
+  doExample={<Button>Save changes</Button>}
+  doText="Rótulos curtos, em forma de verbo, descrevendo o resultado."
+  dontExample={<Button>Click here</Button>}
+  dontText="Rótulos genéricos que não dizem o que acontece."
+/>
+
+<DoDont
+  doExample={
+    <Button variant="danger" leftIcon={<TrashIcon />}>
+      Delete project
+    </Button>
+  }
+  doText="Reserve danger para ações destrutivas e peça confirmação."
+  dontExample={<Button variant="danger">Cancel</Button>}
+  dontText="Não use danger como cor de destaque para ações comuns."
+/>
+
+<DoDont
+  doExample={
+    <Button variant="primary" loading>
+      Saving…
+    </Button>
+  }
+  doText="Use loading para operações assíncronas: o layout não pula."
+  dontExample={<Button disabled>Saving…</Button>}
+  dontText="Não troque por disabled: o foco é perdido e não há indicação de progresso."
+/>
+
+## Design tokens utilizados
+
+Componente: `--ds-button-*`. Estes tokens apontam para tokens semantic e mudam com o tema.
+
+<TokenUsage component="button" />
+
+Também: `rounded-control`, `h-control-sm|md|lg`, `px-sm|md|lg`, `text-sm|md|lg`, `outline-focus-ring`.
+
+## Design ↔ Code
+
+|          | Figma                       | React                                  |
+| -------- | --------------------------- | -------------------------------------- |
+| Exemplo  | `Button / Primary / Medium` | `<Button variant="primary" size="md">` |
+| Variante | propriedade `Variant`       | prop `variant`                         |
+| Tamanho  | propriedade `Size`          | prop `size`                            |

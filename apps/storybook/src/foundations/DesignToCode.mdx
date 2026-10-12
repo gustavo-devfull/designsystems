@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Design ↔ Code" />
+
+# Design ↔ Code
+
+Uma única nomenclatura liga Figma, React, tokens e Storybook. Se um nome diverge, é um bug de documentação.
+
+## Variables do Figma → tokens
+
+| Figma (coleção / modo)                      | Token DTCG                  | Variável CSS                          | Tailwind                       |
+| ------------------------------------------- | --------------------------- | ------------------------------------- | ------------------------------ |
+| `Primitives` / `color/blue/600`             | `color.blue.600`            | `--ds-color-blue-600`                 | — (privado)                    |
+| `Semantic` / `color/action/primary` (Light) | `color.action.primary`      | `--ds-color-action-primary`           | `bg-action-primary`            |
+| `Semantic` / mesmo nome (Dark)              | mesmo token, outro modo     | mesma variável, `[data-theme="dark"]` | mesma classe                   |
+| `Components` / `button/background/primary`  | `button.background.primary` | `--ds-button-background-primary`      | `bg-button-background-primary` |
+
+Os _modes_ **Light** e **Dark** do Figma correspondem a `semantic/color.light.json` e `color.dark.json`. Os dois arquivos precisam ter as mesmas chaves (validado no build).
+
+## Componente: propriedades → props
+
+**Figma:** `Button / Primary / Medium`
+
+**React:**
+
+```tsx
+<Button variant="primary" size="md">
+  Continue
+</Button>
+```
+
+| Figma component property | React prop                                | Valores                                                  | Storybook control               |
+| ------------------------ | ----------------------------------------- | -------------------------------------------------------- | ------------------------------- |
+| `Variant`                | `variant`                                 | `primary` · `secondary` · `outline` · `ghost` · `danger` | select                          |
+| `Size`                   | `size`                                    | `sm` · `md` · `lg`                                       | radio                           |
+| `State`                  | _pseudo-classes_ + `disabled` / `loading` | default · hover · focus · active · disabled · loading    | boolean (`disabled`, `loading`) |
+| `Icon leading`           | `leftIcon`                                | `ReactNode` (ícone decorativo)                           | select                          |
+| `Icon trailing`          | `rightIcon`                               | `ReactNode`                                              | select                          |
+| `Full width`             | `fullWidth`                               | `boolean`                                                | boolean                         |
+| `Label`                  | `children`                                | texto                                                    | text                            |
+
+## Regras de nomenclatura
+
+1. Propriedades do Figma em _Title Case_ (`Variant`), props React em _camelCase_ (`variant`), com **os mesmos valores** em minúsculas.
+2. Estados interativos (hover, focus, active) **não são props**: vêm do CSS. Estados persistentes (`disabled`, `loading`) são props.
+3. Nunca props de estilo (`<Button blue rounded />`). Estilo muda por `variant`/`size` ou por token.

@@ -1,0 +1,20 @@
+/*
+ * @sette/ui stylesheet entry. Compiled to dist/styles.css (`import "@sette/ui/styles.css"`).
+ * No preflight/reset: a component library must not restyle the host application.
+ */
+@layer theme, base, components, utilities;
+
+@import "@design-system/tokens/tokens.css";
+@import "@design-system/tokens/tailwind.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Tailwind's default theme is intentionally not imported, so the one animation we use lives here. */
+@theme {
+  --animate-spin: spin 1s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

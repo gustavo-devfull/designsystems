@@ -1,0 +1,52 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Badge/Badge.stories";
+import { Badge } from "@sette/ui";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# Badge
+
+Rótulo curto que descreve um estado ou categoria ("Pago", "Rascunho", "Falhou").
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<Badge variant="success">Pago</Badge>
+```
+
+É informativo, não interativo. Para uma ação, use `Button`.
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Variants e Sizes
+
+<Canvas of={Stories.Variants} />
+<Canvas of={Stories.Sizes} />
+<Canvas of={Stories.LongContent} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- **O texto carrega o significado**; a cor só reforça (WCAG 1.4.1). "Falhou" em vermelho, nunca apenas um ponto vermelho.
+- Texto sobre fundo ≥ 4.5:1 em todas as variantes e temas (`feedback.*` sobre `feedback.*.subtle`, validado nos tokens).
+- É um `<span>`: não cria região nem é anunciado como status. Se a mudança precisa ser anunciada, use `Alert` ou uma região `aria-live` própria.
+
+## Do & Don't
+
+<DoDont
+  doExample={<Badge variant="error">Pagamento falhou</Badge>}
+  doText="Texto descritivo e variante coerente."
+  dontExample={<Badge variant="error">Ok</Badge>}
+  dontText="Variante que contradiz o texto confunde."
+/>
+
+## Design tokens utilizados
+
+`feedback.<status>`, `feedback.<status>.subtle`, `feedback.<status>.border`, `background.tertiary`, `border.default`, `radius.pill`.
+
+Classes: `bg-feedback-success-subtle`, `text-feedback-success`, `border-feedback-success-border`, `rounded-pill`.

@@ -1,0 +1,21 @@
+/*
+ * How an application consumes the design system with its own Tailwind:
+ *   1. "@sette/ui/styles.css"  – compiled component styles + tokens (themes via [data-theme])
+ *   2. "@sette/ui/tailwind.css" – the token-driven theme, so the app's utilities
+ *      (bg-action-primary, p-md, md:flex…) match the components exactly
+ *   3. Tailwind's utilities (+ preflight, which is the *app's* choice, never the library's)
+ * Apps that only render components can import styles.css and nothing else.
+ */
+@layer theme, base, components, utilities;
+
+@import "@sette/ui/styles.css";
+@import "@sette/ui/tailwind.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+body {
+  background: var(--ds-color-background-primary);
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-family-sans);
+  line-height: var(--ds-font-line-height-normal);
+}

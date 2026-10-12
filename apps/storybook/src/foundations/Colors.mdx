@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorRamps } from "../docs/ColorRamps";
+import { SemanticColors } from "../docs/SemanticColors";
+
+<Meta title="Foundations/Colors" />
+
+# Colors
+
+## Semantic
+
+Os papéis de cor que componentes e aplicações usam. Cada papel aponta para uma _primitive_ diferente em cada tema.
+
+### Background
+
+<SemanticColors group="background" />
+
+### Text
+
+<SemanticColors group="text" />
+
+### Action
+
+<SemanticColors group="action" />
+
+### Border e Focus
+
+<SemanticColors group="border" />
+<SemanticColors group="focus" />
+
+### Feedback
+
+<SemanticColors group="feedback" />
+
+## Primitives
+
+Rampas brutas. São **privadas**: nenhum componente as referencia diretamente (validado no build).
+
+<ColorRamps />
+
+## Contraste
+
+O build calcula o contraste WCAG 2.2 de cada par relevante, em cada tema: texto ≥ 4.5:1 e bordas de controles/foco ≥ 3:1. Um par que falha quebra o `build` do pacote de tokens.

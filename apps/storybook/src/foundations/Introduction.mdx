@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Introduction" />
+
+# Sette Design System
+
+Um design system ponta a ponta: **Figma Variables → Design Tokens → Style Dictionary → CSS Variables → Tailwind → React + TypeScript → Storybook → Acessibilidade → Testes → CI/CD → pacote npm**.
+
+## Instalação
+
+```bash
+pnpm add @sette/ui
+```
+
+```tsx
+import { Button, ThemeProvider } from "@sette/ui";
+import "@sette/ui/styles.css";
+
+export function App() {
+  return (
+    <ThemeProvider storageKey="theme">
+      <Button variant="primary">Continue</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+`react` e `react-dom` são _peer dependencies_. O pacote não traz outra cópia do React e não exige Tailwind no app consumidor.
+
+## Como as camadas se encaixam
+
+| Camada        | Exemplo                              | Quem pode usar                     |
+| ------------- | ------------------------------------ | ---------------------------------- |
+| **Primitive** | `color.blue.600`, `spacing.4`        | Somente tokens semantic            |
+| **Semantic**  | `color.action.primary`, `spacing.md` | Componentes, Tailwind e aplicações |
+| **Component** | `button.background.primary`          | O componente correspondente        |
+
+Componentes dependem de **semântica visual**, nunca de cor física: `bg-action-primary`, não `bg-blue-600`. Trocar de tema, ou adicionar uma marca, é trocar o mapeamento semantic → primitive — nenhum componente muda.
+
+## Onde ir a partir daqui
+
+- **Design ↔ Code**: nomes consistentes entre Figma, React, tokens e controles.
+- **Colors, Typography, Spacing, Radius, Shadows**: as escalas, geradas a partir de `tokens.json`.
+- **Tokens**: todos os tokens, com busca.
+- **Themes**: light e dark lado a lado.
+- **Components**: cada componente com uso, API, estados, acessibilidade e tokens utilizados.
+
+Use o seletor de tema na barra de ferramentas para alternar light/dark em qualquer página.

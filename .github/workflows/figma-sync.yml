@@ -1,0 +1,63 @@
+name: Figma sync
+
+# Prepared, NOT active. To enable:
+#   1. Add the secret FIGMA_ACCESS_TOKEN (a token with the `file_variables:read` scope; the variables
+#      REST API requires an Enterprise organisation).
+#   2. Add the repository variables FIGMA_FILE_KEY (the key in the file URL) and FIGMA_SYNC_ENABLED=true.
+#   3. Optional: add a secret SYNC_PR_TOKEN (a PAT or GitHub App token). Pull requests opened with the default
+#      GITHUB_TOKEN do not trigger other workflows, so without it the sync PR would not run CI.
+# What it does: fetches the variables, converts them to DTCG, validates (layers, theme parity, WCAG contrast),
+# rebuilds the tokens and opens a pull request when something changed.
+on:
+  schedule:
+    - cron: "17 6 * * 1-5" # weekdays, 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: figma-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Figma Variables → tokens
+    if: ${{ vars.FIGMA_SYNC_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      npm_config_enable_pre_post_scripts: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build workspace packages (needed to validate and format)
+        run: pnpm build:packages
+      - name: Sync (fails, with every problem listed, if the Figma file breaks a rule)
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FIGMA_FILE_KEY: ${{ vars.FIGMA_FILE_KEY }}
+        run: pnpm figma:sync
+      - name: Open a pull request when the tokens changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.SYNC_PR_TOKEN || secrets.GITHUB_TOKEN }}
+          branch: chore/figma-tokens
+          delete-branch: true
+          commit-message: "chore(tokens): sync from Figma variables"
+          title: "chore(tokens): sync from Figma variables"
+          body: |
+            Automated sync of the design tokens from the Figma Variables file.
+
+            - Source of truth for colours, spacing, radius, border width, size, breakpoints and component tokens.
+            - Validated before this PR was opened (token layers, light/dark parity, WCAG contrast).
+            - Shadows, typography and motion are code-owned and untouched.
+
+            Review the diff of `packages/tokens/src`; visual changes are covered by the accessibility gate in CI.
+          labels: tokens, automated

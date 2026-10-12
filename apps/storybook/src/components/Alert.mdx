@@ -1,0 +1,62 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Alert/Alert.stories";
+import { Alert } from "@sette/ui";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# Alert
+
+Mensagem persistente na própria página (não um popup). Para informar sem interromper, use `info`/`success`; para problemas, `warning`/`error`.
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<Alert variant="error" title="Pagamento recusado" onDismiss={() => setOpen(false)}>
+  Verifique os dados do cartão e tente novamente.
+</Alert>
+```
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Variants
+
+<Canvas of={Stories.Variants} />
+
+## States
+
+<Canvas of={Stories.TitleOnly} />
+<Canvas of={Stories.DescriptionOnly} />
+<Canvas of={Stories.NoIcon} />
+<Canvas of={Stories.Dismissible} />
+<Canvas of={Stories.LongContent} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- `error` e `warning` usam `role="alert"` (anunciado imediatamente); `info` e `success` usam `role="status"` (anunciado com educação, sem interromper). Sobrescreva com a prop `role` se necessário.
+- Ícones são decorativos; o significado está no texto, não só na cor ou no ícone.
+- O botão de dispensar é um `IconButton` com nome acessível configurável (`dismissLabel`) e teclado completo.
+- Contraste de texto ≥ 4.5:1 nos dois temas (validado nos tokens).
+- Alertas que **já existem** no carregamento da página também são anunciados por `role="alert"`; use-os com moderação.
+
+## Do & Don't
+
+<DoDont
+  doExample={
+    <Alert variant="warning" title="Sessão expira em 2 min">
+      Salve seu trabalho.
+    </Alert>
+  }
+  doText="Diga o que aconteceu e o que fazer."
+  dontExample={<Alert variant="error">Erro</Alert>}
+  dontText="Mensagens vagas não ajudam."
+/>
+
+## Design tokens utilizados
+
+`feedback.<status>` (ícone), `feedback.<status>.subtle` (fundo), `feedback.<status>.border`, `text.primary`, `radius.surface`.

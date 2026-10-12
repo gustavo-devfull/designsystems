@@ -1,0 +1,70 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Tabs/Tabs.stories";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# Tabs
+
+Alterna entre painéis relacionados no mesmo contexto, mostrando um de cada vez.
+
+<Canvas of={Stories.Default} />
+
+## Por que Radix
+
+O padrão WAI-ARIA de abas (tabindex "roving", setas, Home/End, `aria-controls`/`aria-labelledby`) tem muitos detalhes. `@radix-ui/react-tabs` cuida do comportamento; a camada visual e a API pública são nossas.
+
+## Usage
+
+```tsx
+<Tabs defaultValue="overview">
+  <TabsList aria-label="Seções do projeto">
+    <TabsTrigger value="overview">Visão geral</TabsTrigger>
+    <TabsTrigger value="activity">Atividade</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">…</TabsContent>
+  <TabsContent value="activity">…</TabsContent>
+</Tabs>
+```
+
+Controlado (`value` + `onValueChange`) ou não (`defaultValue`). Dê um nome à lista com `aria-label` quando o contexto não o fizer.
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Variações
+
+<Canvas of={Stories.ManualActivation} />
+<Canvas of={Stories.SecondSelected} />
+<Canvas of={Stories.LongLabels} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+| Tecla              | Ação                                                               |
+| ------------------ | ------------------------------------------------------------------ |
+| **Tab**            | Entra na lista **na aba ativa**; o próximo Tab vai ao painel ativo |
+| **← →**            | Move entre abas (circular), pulando abas desabilitadas             |
+| **Home / End**     | Primeira / última aba                                              |
+| **Enter / Espaço** | Seleciona (necessário em `activationMode="manual"`)                |
+
+- **Automático** (padrão): as setas movem o foco **e** selecionam. **Manual**: só movem o foco; use quando renderizar o painel é caro.
+- O painel é focável (`tabindex=0`), para que usuários de teclado alcancem painéis sem conteúdo focável.
+- O indicador da aba ativa (`action.primary`) tem ≥ 3:1 contra o fundo, e o texto ativo/inativo ≥ 4.5:1 nos dois temas.
+- Se a lista não couber, ela rola na horizontal (`overflow-x-auto`).
+
+## Do & Don't
+
+<DoDont
+  doExample={<span className="text-sm">Visão geral · Atividade · Configurações</span>}
+  doText="Rótulos curtos e paralelos; 2 a 6 abas."
+  dontExample={<span className="text-sm">Passo 1 · Passo 2 · Passo 3 (fluxo sequencial)</span>}
+  dontText="Abas não são um assistente de passos: o usuário pode ir em qualquer ordem."
+/>
+
+- **Don't** use abas para navegação entre páginas (use links/nav).
+
+## Design tokens utilizados
+
+`text.primary`, `text.secondary`, `text.disabled`, `action.primary` (indicador), `border.default`, `focus.ring`, `size.control.md`, `spacing.md`.

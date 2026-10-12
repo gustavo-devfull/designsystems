@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "rootDir": "dist",
+    "outDir": "dist",
+    "allowImportingTsExtensions": false,
+    "types": []
+  },
+  "include": ["dist/tokens.ts"],
+  "exclude": []
+}

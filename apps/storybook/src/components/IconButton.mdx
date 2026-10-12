@@ -1,0 +1,70 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/IconButton/IconButton.stories";
+import { IconButton } from "@sette/ui";
+import { CloseIcon } from "@design-system/icons";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# IconButton
+
+Botão que contém apenas um ícone. Usa as mesmas variantes e tokens do `Button`, com alvo quadrado.
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<IconButton aria-label="Fechar diálogo" onClick={close}>
+  <CloseIcon />
+</IconButton>
+```
+
+Use em barras de ferramentas, cabeçalhos de diálogo e ações repetidas em listas, onde o significado do ícone é universal. Se houver espaço, prefira `Button` com texto.
+
+## API
+
+<Controls of={Stories.Default} />
+
+`aria-label` é **obrigatório e verificado pelo TypeScript**: um ícone sozinho não tem nome acessível e seria anunciado apenas como "botão".
+
+## Variants e Sizes
+
+<Canvas of={Stories.Variants} />
+<Canvas of={Stories.Sizes} />
+<Canvas of={Stories.Icons} />
+
+## States
+
+<Canvas of={Stories.Disabled} />
+<Canvas of={Stories.Loading} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- `aria-label` descreve a **ação** ("Fechar diálogo"), nunca o desenho ("X").
+- O ícone é decorativo (`aria-hidden`); o nome vem só do `aria-label`.
+- Alvo mínimo de 32px (`sm`); use `md` (40px) ou `lg` (48px) em interfaces de toque.
+- Mesmos comportamentos do `Button`: Enter/Espaço, `disabled` nativo, `loading` focável e `aria-busy`.
+- Para mostrar o nome visualmente, combine com `Tooltip` (próximo lote).
+
+## Do & Don't
+
+<DoDont
+  doExample={
+    <IconButton aria-label="Fechar">
+      <CloseIcon />
+    </IconButton>
+  }
+  doText="Nome que descreve a ação."
+  dontExample={
+    <IconButton aria-label="X">
+      <CloseIcon />
+    </IconButton>
+  }
+  dontText="Nome que descreve o desenho, não a ação."
+/>
+
+## Design tokens utilizados
+
+Os mesmos `--ds-button-*` do `Button` (ver a página de Button), mais `size-control-sm|md|lg`.

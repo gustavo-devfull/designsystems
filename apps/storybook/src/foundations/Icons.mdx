@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { IconGallery } from "../docs/IconGallery";
+
+<Meta title="Foundations/Icons" />
+
+# Icons
+
+`@design-system/icons`: SVGs 24×24 com `currentColor`, exportados individualmente (tree-shakeable).
+
+<IconGallery />
+
+```tsx
+import { PlusIcon } from "@design-system/icons";
+
+<Button leftIcon={<PlusIcon />}>New project</Button>   // decorativo
+<PlusIcon title="Add item" />                          // semântico: role="img" + nome
+```
+
+Por padrão o ícone é decorativo (`aria-hidden`). Passe `title` somente quando o ícone for o único conteúdo de um controle ou carregar significado sozinho.

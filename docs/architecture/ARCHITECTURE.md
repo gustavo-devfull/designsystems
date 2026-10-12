@@ -130,7 +130,17 @@ para Chromatic, Changesets e publicação npm com provenance.
 - **Tailwind classes no bundle**: o consumidor importa `styles.css` pré-compilado; não exige
   Tailwind no app consumidor.
 
-## 13. Próximos passos (ordem de execução)
+## 13. Estado e leitura adicional
 
-6. `packages/tokens` (DTCG + Style Dictionary) → 7. Tailwind → 8. `packages/ui` (Button de referência)
-   → 9. Storybook → 10–15. demais componentes, testes, a11y, CI, publicação, docs.
+Implementado: monorepo, tokens (3 camadas, light/dark, validação), Tailwind v4, 17 componentes + `ThemeProvider`, Storybook,
+playground, gate de acessibilidade, CI, camada de sync com o Figma, empacotamento e release (workflows inativos).
+
+Decisões que surgiram durante a implementação e estão documentadas onde vivem:
+
+- Tokens de componente redeclarados em `[data-theme]` e `@theme inline` (temas aninhados): `packages/tokens/README.md`.
+- Breakpoints, larguras de diálogo e overlay como tokens (sem o tema padrão do Tailwind não existem): `packages/tokens/build/tailwind.ts`.
+- Overlays portalizados dentro do elemento do tema: `packages/ui/src/theme/portal.ts`.
+- Contrato do pacote (tipos `nodenext`, `catalog:`, tree-shaking): `docs/releasing.md`.
+
+Leitura: [`docs/case-study.md`](../case-study.md) (decisões e trade-offs), [`docs/governance.md`](../governance.md), [`docs/ci.md`](../ci.md),
+[`docs/releasing.md`](../releasing.md), [`scripts/figma-sync/README.md`](../../scripts/figma-sync/README.md).

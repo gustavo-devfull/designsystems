@@ -1,0 +1,62 @@
+{
+  "button": {
+    "$description": "Component tokens for Button. Reference semantic tokens only.",
+    "background": {
+      "$type": "color",
+      "primary": {
+        "$root": { "$value": "{color.action.primary.$root}" },
+        "hover": { "$value": "{color.action.primary.hover}" },
+        "active": { "$value": "{color.action.primary.active}" }
+      },
+      "secondary": {
+        "$root": { "$value": "{color.action.secondary.$root}" },
+        "hover": { "$value": "{color.action.secondary.hover}" },
+        "active": { "$value": "{color.action.secondary.active}" }
+      },
+      "danger": {
+        "$root": { "$value": "{color.action.danger.$root}" },
+        "hover": { "$value": "{color.action.danger.hover}" },
+        "active": { "$value": "{color.action.danger.active}" }
+      },
+      "outline": {
+        "$root": { "$value": "{color.background.transparent}" },
+        "hover": { "$value": "{color.background.secondary}" },
+        "active": { "$value": "{color.background.tertiary}" }
+      },
+      "ghost": {
+        "$root": { "$value": "{color.background.transparent}" },
+        "hover": { "$value": "{color.background.secondary}" },
+        "active": { "$value": "{color.background.tertiary}" }
+      },
+      "disabled": { "$value": "{color.background.disabled}" }
+    },
+    "text": {
+      "$type": "color",
+      "primary": { "$value": "{color.text.on-action}" },
+      "secondary": { "$value": "{color.text.primary}" },
+      "danger": { "$value": "{color.text.on-action}" },
+      "outline": { "$value": "{color.text.primary}" },
+      "ghost": { "$value": "{color.text.primary}" },
+      "disabled": { "$value": "{color.text.disabled}" }
+    },
+    "border": {
+      "$type": "color",
+      "outline": { "$value": "{color.border.strong}" },
+      "disabled": { "$value": "{color.border.default}" }
+    },
+    "radius": { "$type": "dimension", "$value": "{radius.control}" },
+    "height": {
+      "$type": "dimension",
+      "sm": { "$value": "{size.control.sm}" },
+      "md": { "$value": "{size.control.md}" },
+      "lg": { "$value": "{size.control.lg}" }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "sm": { "$value": "{spacing.sm}" },
+      "md": { "$value": "{spacing.md}" },
+      "lg": { "$value": "{spacing.lg}" }
+    },
+    "gap": { "$type": "dimension", "$value": "{spacing.sm}" }
+  }
+}

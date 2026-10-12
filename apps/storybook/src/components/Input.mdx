@@ -1,0 +1,124 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as InputStories from "../../../../packages/ui/src/components/Input/Input.stories";
+import { Input } from "@sette/ui";
+import { DoDont } from "../docs/DoDont";
+import { TokenUsage } from "../docs/TokenUsage";
+
+<Meta of={InputStories} />
+
+# Input
+
+Campo de texto de uma linha. Base de todos os campos de formulário: `Textarea` e `Select` compartilham o mesmo contrato (label, ajuda, erro, `required`, `disabled`, ARIA).
+
+<Canvas of={InputStories.Default} />
+
+## Usage
+
+```tsx
+<Input
+  label="Email"
+  type="email"
+  helperText="Nunca compartilhamos seu email."
+  error={errors.email}
+  required
+/>
+```
+
+- `label` é **obrigatório**: todo campo precisa de nome acessível. Use `hideLabel` para ocultá-lo visualmente (continua disponível para leitores de tela).
+- `ref` e atributos nativos (`type`, `name`, `autoComplete`, `inputMode`, `onChange`…) vão para o `<input>`.
+- `className` ajusta o **wrapper** (largura, margem); `inputClassName` ajusta o `<input>`.
+- Controlado ou não controlado, como um `<input>` nativo.
+
+## API
+
+<Controls of={InputStories.Default} />
+
+## Sizes
+
+<Canvas of={InputStories.Sizes} />
+
+## States
+
+### Helper text e required
+
+<Canvas of={InputStories.WithHelperText} />
+<Canvas of={InputStories.Required} />
+
+### Error
+
+A mensagem **substitui** a ajuda, marca `aria-invalid` e é anunciada ao aparecer. Descreva o problema e como corrigi-lo.
+
+<Canvas of={InputStories.Error} />
+
+### Disabled
+
+<Canvas of={InputStories.Disabled} />
+
+### Label oculta e conteúdo longo
+
+<Canvas of={InputStories.HiddenLabel} />
+<Canvas of={InputStories.LongContent} />
+
+### Tema escuro
+
+<Canvas of={InputStories.DarkTheme} />
+
+## Accessibility
+
+- `<label for>` ligado ao `<input>` por `useId()` (seguro em SSR; um `id` próprio é respeitado).
+- Ajuda e erro ligados por `aria-describedby`; um `aria-describedby` do consumidor é **somado**, não substituído.
+- `aria-invalid="true"` quando há erro; o erro nunca depende só de cor (texto + borda).
+- `required` é o atributo nativo (anunciado pelo leitor de tela); o asterisco é decorativo (`aria-hidden`).
+- Região `aria-live="polite"` sempre montada, para que erros que aparecem depois sejam anunciados.
+- Borda do campo ≥ 3:1 contra o fundo (`color.border.input`, WCAG 1.4.11); contorno de foco com o mesmo contraste.
+- Alvos de 32/40/48px de altura.
+
+## Do & Don't
+
+<DoDont
+  doExample={
+    <div className="w-64">
+      <Input label="Email" helperText="Usaremos para recuperar sua conta." />
+    </div>
+  }
+  doText="Rótulo visível e ajuda curta e útil."
+  dontExample={
+    <div className="w-64">
+      <input
+        className="h-control-md w-full rounded-control border border-border-input px-md"
+        placeholder="Email"
+      />
+    </div>
+  }
+  dontText="Só placeholder: ele some ao digitar e não é um rótulo."
+/>
+
+<DoDont
+  doExample={
+    <div className="w-64">
+      <Input label="Email" defaultValue="ada@" error="Inclua o domínio, ex.: ada@empresa.com" />
+    </div>
+  }
+  doText="Diga o que corrigir."
+  dontExample={
+    <div className="w-64">
+      <Input label="Email" defaultValue="ada@" error="Inválido" />
+    </div>
+  }
+  dontText="Mensagens vagas deixam o usuário sem saber o que fazer."
+/>
+
+## Design tokens utilizados
+
+<TokenUsage component="input" />
+
+Também: `rounded-control`, `h-control-sm|md|lg`, `px-sm|md`, `text-sm|md|lg`, `text-feedback-error`, `text-text-secondary`, `outline-focus-ring`.
+
+## Design ↔ Code
+
+| Figma                         | React                                |
+| ----------------------------- | ------------------------------------ |
+| `Input / Medium / Default`    | `<Input label="…" size="md" />`      |
+| `State=Error` + `Helper text` | `error="…"` (substitui `helperText`) |
+| `State=Disabled`              | `disabled`                           |
+| `Required=true`               | `required`                           |

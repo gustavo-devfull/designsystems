@@ -1,0 +1,56 @@
+name: Release
+
+# Prepared, NOT active. To enable publishing of @sette/ui:
+#   1. Own the npm scope `@sette` (or rename the package) and add the secret NPM_TOKEN (an automation token).
+#   2. Add the repository variable RELEASE_ENABLED=true.
+#   3. Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+# Flow (Changesets): changes land on main with changesets → this workflow opens/updates a "Version Packages" PR
+# (bumps versions, writes CHANGELOG.md) → merging that PR publishes to npm with provenance and tags the release.
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push the version commit / tags
+  pull-requests: write # open the "Version Packages" PR
+  id-token: write # npm provenance (OIDC)
+
+jobs:
+  release:
+    name: Version PR / publish
+    if: ${{ vars.RELEASE_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      npm_config_enable_pre_post_scripts: "false"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - name: Verify the package before it can ship
+        run: |
+          pnpm check:package
+          pnpm --filter @sette/ui test:package
+      - name: Create the release PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm version-packages
+          publish: pnpm release
+          title: "chore: version packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
