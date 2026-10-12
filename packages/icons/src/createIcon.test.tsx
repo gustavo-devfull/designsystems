@@ -25,7 +25,11 @@ describe("icons", () => {
   });
 
   it("contains no stray text: only graphics, so nothing is exposed besides the optional title", () => {
-    const iconEntries = Object.entries(icons).filter(([name]) => /^[A-Z]\w*Icon$/.test(name));
+    // Only the exported icon components (not the `createIcon` factory).
+    const iconEntries = Object.entries(icons).filter(([name]) => /^[A-Z]\w*Icon$/.test(name)) as [
+      string,
+      typeof PlusIcon,
+    ][];
     expect(iconEntries.length).toBeGreaterThanOrEqual(11);
     for (const [name, Icon] of iconEntries) {
       const { container, unmount } = render(<Icon />);
