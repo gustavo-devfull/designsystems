@@ -53,6 +53,26 @@ async function waitForStory(page: Page): Promise<string | undefined> {
   return failed?.slice(0, 400);
 }
 
+async function waitForDocs(page: Page): Promise<string | undefined> {
+  try {
+    await page
+      .locator(".sbdocs-content")
+      .first()
+      .waitFor({ state: "attached", timeout: RENDER_TIMEOUT });
+  } catch {
+    return "Docs page did not render (.sbdocs-content never appeared).";
+  }
+  await page.waitForTimeout(250);
+  return page.evaluate(() =>
+    document.body.classList.contains("sb-show-errordisplay")
+      ? `Docs page crashed: ${(document.querySelector("#error-message")?.textContent ?? "").trim()}`.slice(
+          0,
+          400,
+        )
+      : undefined,
+  );
+}
+
 export async function sweepStorybook(opts: {
   browser: Browser;
   baseUrl: string;
@@ -63,19 +83,24 @@ export async function sweepStorybook(opts: {
   const index = (await (await fetch(`${opts.baseUrl}/index.json`)).json()) as {
     entries: Record<string, IndexEntry>;
   };
-  const stories = Object.values(index.entries).filter(
-    (e) => e.type === "story" && (!opts.filter || e.id.includes(opts.filter)),
+  const entries = Object.values(index.entries).filter(
+    (e) => !opts.filter || e.id.includes(opts.filter),
   );
+  const stories = entries.filter((e) => e.type === "story");
+  const docs = entries.filter((e) => e.type === "docs");
   if (stories.length === 0) throw new Error("No stories found in Storybook's index.json");
 
-  const jobs = opts.themes.flatMap((theme) => stories.map((story) => ({ theme, story })));
+  const jobs = opts.themes.flatMap((theme) => [
+    ...stories.map((story) => ({ theme, story, kind: "story" as const })),
+    ...docs.map((story) => ({ theme, story, kind: "docs" as const })),
+  ]);
   const context = await opts.browser.newContext({ viewport: { width: 900, height: 700 } });
   const pages = await Promise.all(
     Array.from({ length: opts.concurrency }, () => context.newPage()),
   );
   const free = [...pages];
 
-  const results = await mapPool(jobs, opts.concurrency, async ({ theme, story }) => {
+  const results = await mapPool(jobs, opts.concurrency, async ({ theme, story, kind }) => {
     const page = free.pop() as Page;
     const pageErrors: string[] = [];
     const onError = (e: Error) => pageErrors.push(e.message.slice(0, 200));
@@ -93,7 +118,7 @@ export async function sweepStorybook(opts: {
         storyError ?? (pageErrors.length > 0 ? `Uncaught: ${pageErrors[0]}` : undefined);
       return {
         target: "storybook" as const,
-        name: `${story.title} / ${story.name}`,
+        name: kind === "docs" ? `${story.title} (docs page)` : `${story.title} / ${story.name}`,
         theme,
         violations,
         ...(error ? { error } : {}),

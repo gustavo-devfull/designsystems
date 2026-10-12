@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { configureAxe } from "vitest-axe";
 
 const axe = configureAxe();
+import * as icons from "./index";
 import { CheckIcon, PlusIcon } from "./index";
 
 describe("icons", () => {
@@ -21,6 +22,16 @@ describe("icons", () => {
     render(<PlusIcon ref={ref} size={32} className="text-action-primary" />);
     expect(ref.current).toHaveAttribute("width", "32");
     expect(ref.current).toHaveClass("text-action-primary");
+  });
+
+  it("contains no stray text: only graphics, so nothing is exposed besides the optional title", () => {
+    const iconEntries = Object.entries(icons).filter(([name]) => /^[A-Z]\w*Icon$/.test(name));
+    expect(iconEntries.length).toBeGreaterThanOrEqual(11);
+    for (const [name, Icon] of iconEntries) {
+      const { container, unmount } = render(<Icon />);
+      expect(container.querySelector("svg")?.textContent, name).toBe("");
+      unmount();
+    }
   });
 
   it("a11y: has no axe violations", async () => {

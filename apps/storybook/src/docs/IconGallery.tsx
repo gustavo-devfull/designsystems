@@ -4,7 +4,7 @@ type IconComponent = (typeof icons)["PlusIcon"];
 
 /** Every exported `*Icon`, rendered with the same sizing API consumers use. */
 export function IconGallery() {
-  const entries = Object.entries(icons).filter(([name]) => name.endsWith("Icon")) as [
+  const entries = Object.entries(icons).filter(([name]) => /^[A-Z]\w*Icon$/.test(name)) as [
     string,
     IconComponent,
   ][];
