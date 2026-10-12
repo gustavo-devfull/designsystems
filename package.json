@@ -26,7 +26,8 @@
     "pretest": "pnpm build:packages",
     "build:packages": "pnpm -r --workspace-concurrency=1 --filter './packages/*' build",
     "playground": "pnpm build:packages && pnpm --filter @design-system/playground dev",
-    "a11y:unit": "pnpm -r test:a11y"
+    "a11y:unit": "pnpm -r test:a11y",
+    "figma:check": "pnpm --filter @design-system/figma-sync check"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

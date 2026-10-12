@@ -3,6 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "description": "Figma Variables → DTCG sync layer (fetch, convert, validate, build).",
-  "scripts": {}
+  "description": "Figma Variables \u2192 DTCG sync layer (fetch, convert, validate, build). Never stores credentials.",
+  "scripts": {
+    "sync": "node src/cli.ts",
+    "check": "node src/cli.ts --check",
+    "fixture": "node src/cli.ts --write-fixture",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test src/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
 }
