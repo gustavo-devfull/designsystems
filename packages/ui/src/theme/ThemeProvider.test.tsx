@@ -1,5 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Button } from "../components/Button";
+import { Dialog, DialogContent, DialogTrigger } from "../components/Dialog";
 import { ThemeProvider, useTheme } from "./ThemeProvider";
 
 function mockSystemTheme(initial: "light" | "dark") {
@@ -79,6 +81,26 @@ describe("ThemeProvider", () => {
       </ThemeProvider>,
     );
     expect(container.firstElementChild).toHaveAttribute("data-theme", "dark");
+    expect(document.documentElement).not.toHaveAttribute("data-theme");
+  });
+
+  it("keeps overlays (Dialog) inside the themed element instead of document.body", async () => {
+    mockSystemTheme("light");
+    render(
+      <ThemeProvider scope="element" defaultTheme="dark">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Open</Button>
+          </DialogTrigger>
+          <DialogContent title="Themed" />
+        </Dialog>
+      </ThemeProvider>,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Open" }));
+    expect(screen.getByRole("dialog").closest("[data-theme]")).toHaveAttribute(
+      "data-theme",
+      "dark",
+    );
     expect(document.documentElement).not.toHaveAttribute("data-theme");
   });
 

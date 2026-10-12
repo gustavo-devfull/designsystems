@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/Card";
+import { Dialog, DialogContent, DialogFooter } from "../components/Dialog";
 import { Divider } from "../components/Divider";
 import { IconButton } from "../components/IconButton";
 import { Checkbox } from "../components/Checkbox";
@@ -22,6 +23,8 @@ import { Input } from "../components/Input";
 import { Radio, RadioGroup } from "../components/Radio";
 import { Select } from "../components/Select";
 import { Spinner } from "../components/Spinner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/Tabs";
+import { Tooltip } from "../components/Tooltip";
 import { Switch } from "../components/Switch";
 import { Textarea } from "../components/Textarea";
 
@@ -35,7 +38,7 @@ const MARKERS = new Set(["peer", "group"]);
 
 /** Renders every component in every visual state, so inline (non-cva) classes are covered too. */
 function renderGallery(): string[] {
-  const { container } = render(
+  render(
     <>
       {(["primary", "secondary", "outline", "ghost", "danger"] as const).flatMap((variant) =>
         (["sm", "md", "lg"] as const).map((size) => (
@@ -90,6 +93,25 @@ function renderGallery(): string[] {
       ))}
       <Divider />
       <Divider orientation="vertical" />
+      {(["sm", "md", "lg"] as const).map((size) => (
+        <Dialog key={size} open>
+          <DialogContent title="t" description="d" size={size}>
+            c<DialogFooter>f</DialogFooter>
+          </DialogContent>
+        </Dialog>
+      ))}
+      <Tooltip content="t" defaultOpen>
+        <button>x</button>
+      </Tooltip>
+      <Tabs defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">a</TabsTrigger>
+          <TabsTrigger value="b" disabled>
+            b
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">c</TabsContent>
+      </Tabs>
       <Spinner label="x" size="sm" />
       <Spinner size="lg" />
       {(["sm", "md", "lg"] as const).map((size) => (
@@ -119,7 +141,8 @@ function renderGallery(): string[] {
     </>,
   );
   const classes = new Set<string>();
-  for (const el of container.querySelectorAll("[class]")) {
+  // Overlays are portalled to <body>, so scan the whole body.
+  for (const el of document.body.querySelectorAll("[class]")) {
     // SVG elements expose className as an object; read the attribute instead.
     for (const c of (el.getAttribute("class") ?? "").split(/\s+/)) if (c) classes.add(c);
   }

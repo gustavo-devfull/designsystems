@@ -33,6 +33,24 @@ export { Avatar, avatarVariants } from "./components/Avatar";
 export type { AvatarProps, AvatarSize } from "./components/Avatar";
 export { Divider } from "./components/Divider";
 export type { DividerProps } from "./components/Divider";
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogTrigger,
+  dialogContentVariants,
+} from "./components/Dialog";
+export type { DialogContentProps, DialogSize } from "./components/Dialog";
+export { Tooltip, TooltipProvider } from "./components/Tooltip";
+export type { TooltipProps } from "./components/Tooltip";
+export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/Tabs";
+export type {
+  TabsContentProps,
+  TabsListProps,
+  TabsProps,
+  TabsTriggerProps,
+} from "./components/Tabs";
 export { Spinner, spinnerVariants } from "./components/Spinner";
 export type { SpinnerProps, SpinnerSize } from "./components/Spinner";
 export { ThemeProvider, useTheme } from "./theme";

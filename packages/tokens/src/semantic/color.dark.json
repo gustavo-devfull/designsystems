@@ -22,6 +22,9 @@
       },
       "transparent": {
         "$value": "{color.transparent}"
+      },
+      "overlay": {
+        "$value": "{color.black-alpha.70}"
       }
     },
     "text": {

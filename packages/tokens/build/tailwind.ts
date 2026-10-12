@@ -26,7 +26,7 @@ function themeVariable(name: string, t: ResolvedToken): string | undefined {
     case "spacing":
       return `--spacing-${key}`;
     case "size":
-      return rest[0] === "control" ? `--spacing-${key}` : undefined;
+      return `--spacing-${key}`;
     case "elevation":
       return `--shadow-${key}`;
     case "font":

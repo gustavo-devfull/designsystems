@@ -1,0 +1,95 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Dialog/Dialog.stories";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# Dialog
+
+Janela **modal** que exige uma resposta antes de o usuário continuar (confirmar uma exclusão, preencher um formulário curto).
+
+<Canvas of={Stories.Default} />
+
+## Por que Radix
+
+Foco preso, retorno de foco ao gatilho, `Esc`, página inerte e _scroll lock_ são difíceis de acertar. O `Dialog` usa `@radix-ui/react-dialog` **apenas** para esse comportamento; visual, tokens e API pública são nossos (o Radix não aparece na API).
+
+## Usage
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant="danger">Excluir projeto</Button>
+  </DialogTrigger>
+  <DialogContent title="Excluir projeto" description="Esta ação não pode ser desfeita.">
+    <DialogFooter>
+      <DialogClose asChild>
+        <Button variant="outline">Cancelar</Button>
+      </DialogClose>
+      <Button variant="danger" onClick={remove}>
+        Excluir
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+- `title` é **obrigatório** (nome acessível do diálogo). `description` é opcional; sem ela, não há `aria-describedby`.
+- Controlado (`open` + `onOpenChange`) ou não controlado (`defaultOpen`).
+- Partes: `Dialog` · `DialogTrigger` · `DialogContent` · `DialogFooter` · `DialogClose`.
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />
+
+## Variações
+
+<Canvas of={Stories.WithoutDescription} />
+<Canvas of={Stories.WithForm} />
+<Canvas of={Stories.LongContent} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+| Comportamento    | Como                                                                          |
+| ---------------- | ----------------------------------------------------------------------------- |
+| Nome e descrição | `role="dialog"`, `aria-labelledby` (title) e `aria-describedby` (description) |
+| Foco ao abrir    | Vai para o **primeiro controle do corpo** (ex.: "Cancelar"), não para o ✕     |
+| Foco preso       | **Tab** / **Shift+Tab** circulam dentro do diálogo                            |
+| Fechar           | **Esc**, botão ✕ (`closeLabel`), `DialogClose` ou clique no fundo             |
+| Foco ao fechar   | Volta ao elemento que abriu                                                   |
+| Resto da página  | Inerte para tecnologias assistivas (`aria-hidden`) e sem rolagem              |
+
+- O botão ✕ fica **por último** na ordem do DOM (posicionado no canto por CSS), para que o foco inicial caia no conteúdo.
+- O diálogo é renderizado em um _portal_. Dentro de `ThemeProvider scope="element"`, ele usa o elemento do tema como container e **mantém o tema** (veja a story Dark theme).
+- Contraste: texto sobre `background.elevated` e o fundo `background.overlay` validados nos tokens.
+
+## Do & Don't
+
+<DoDont
+  doExample={
+    <span className="text-sm">
+      Título: <strong>Excluir projeto</strong> · Ações: Cancelar / Excluir
+    </span>
+  }
+  doText="Título claro e botões com verbos específicos; o botão seguro recebe o foco."
+  dontExample={
+    <span className="text-sm">
+      Título: <strong>Atenção</strong> · Ações: OK / Cancelar
+    </span>
+  }
+  dontText="Títulos e rótulos genéricos obrigam a reler o texto."
+/>
+
+- **Don't** use diálogo para mensagens que não exigem resposta (use `Alert`) nem para fluxos longos (use uma página).
+- **Don't** abra um diálogo sobre outro.
+
+## Design tokens utilizados
+
+`background.elevated`, `background.overlay`, `border.default`, `text.primary`, `text.secondary`, `radius.surface`, `elevation.high`, `size.dialog.sm|md|lg`, `spacing.lg|md`.
+
+Classes: `bg-background-overlay`, `max-w-dialog-md`, `rounded-surface`, `shadow-high`.

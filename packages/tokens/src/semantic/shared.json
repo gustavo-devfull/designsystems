@@ -1,49 +1,107 @@
 {
   "spacing": {
     "$type": "dimension",
-    "xs": { "$value": "{spacing.1}", "$description": "Tight gaps (icon/label)" },
-    "sm": { "$value": "{spacing.2}" },
-    "md": { "$value": "{spacing.4}", "$description": "Default gap/padding" },
-    "lg": { "$value": "{spacing.6}" },
-    "xl": { "$value": "{spacing.8}" },
-    "2xl": { "$value": "{spacing.12}" }
+    "xs": {
+      "$value": "{spacing.1}",
+      "$description": "Tight gaps (icon/label)"
+    },
+    "sm": {
+      "$value": "{spacing.2}"
+    },
+    "md": {
+      "$value": "{spacing.4}",
+      "$description": "Default gap/padding"
+    },
+    "lg": {
+      "$value": "{spacing.6}"
+    },
+    "xl": {
+      "$value": "{spacing.8}"
+    },
+    "2xl": {
+      "$value": "{spacing.12}"
+    }
   },
   "radius": {
     "$type": "dimension",
-    "control": { "$value": "{radius.md}", "$description": "Buttons, inputs" },
-    "surface": { "$value": "{radius.lg}", "$description": "Cards, dialogs" },
-    "pill": { "$value": "{radius.full}" }
+    "control": {
+      "$value": "{radius.md}",
+      "$description": "Buttons, inputs"
+    },
+    "surface": {
+      "$value": "{radius.lg}",
+      "$description": "Cards, dialogs"
+    },
+    "pill": {
+      "$value": "{radius.full}"
+    }
   },
   "size": {
     "control": {
       "$type": "dimension",
-      "sm": { "$value": "{spacing.8}" },
-      "md": { "$value": "{spacing.10}" },
-      "lg": { "$value": "{spacing.12}" }
+      "sm": {
+        "$value": "{spacing.8}"
+      },
+      "md": {
+        "$value": "{spacing.10}"
+      },
+      "lg": {
+        "$value": "{spacing.12}"
+      }
+    },
+    "dialog": {
+      "$type": "dimension",
+      "sm": {
+        "$value": "{spacing.96}"
+      },
+      "md": {
+        "$value": "{spacing.128}"
+      },
+      "lg": {
+        "$value": "{spacing.160}"
+      }
     }
   },
   "border-width": {
     "$type": "dimension",
-    "default": { "$value": "{border-width.1}" },
-    "focus": { "$value": "{border-width.2}" }
+    "default": {
+      "$value": "{border-width.1}"
+    },
+    "focus": {
+      "$value": "{border-width.2}"
+    }
   },
   "elevation": {
     "$type": "shadow",
-    "low": { "$value": "{shadow.sm}" },
-    "mid": { "$value": "{shadow.md}" },
-    "high": { "$value": "{shadow.lg}" }
+    "low": {
+      "$value": "{shadow.sm}"
+    },
+    "mid": {
+      "$value": "{shadow.md}"
+    },
+    "high": {
+      "$value": "{shadow.lg}"
+    }
   },
   "transition": {
     "duration": {
       "$type": "duration",
       "$description": "Zeroed under prefers-reduced-motion",
-      "fast": { "$value": "{motion.duration.fast}" },
-      "default": { "$value": "{motion.duration.normal}" },
-      "slow": { "$value": "{motion.duration.slow}" }
+      "fast": {
+        "$value": "{motion.duration.fast}"
+      },
+      "default": {
+        "$value": "{motion.duration.normal}"
+      },
+      "slow": {
+        "$value": "{motion.duration.slow}"
+      }
     },
     "easing": {
       "$type": "cubicBezier",
-      "default": { "$value": "{motion.easing.standard}" }
+      "default": {
+        "$value": "{motion.easing.standard}"
+      }
     }
   }
 }

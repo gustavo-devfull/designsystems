@@ -8,6 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { cn } from "../lib/cn";
+import { PortalContainerContext } from "./portal";
 import type {
   ResolvedTheme,
   ThemeContextValue,
@@ -52,6 +53,7 @@ export function ThemeProvider({
   scope = "document",
   className,
 }: ThemeProviderProps) {
+  const [wrapper, setWrapper] = useState<HTMLElement | null>(null);
   const [theme, setThemeState] = useState<ThemePreference>(
     () => readStoredPreference(storageKey) ?? defaultTheme,
   );
@@ -91,10 +93,13 @@ export function ThemeProvider({
     <ThemeContext.Provider value={value}>
       {scope === "element" ? (
         <div
+          ref={setWrapper}
           data-theme={resolvedTheme}
           className={cn("bg-background-primary text-text-primary", className)}
         >
-          {children}
+          <PortalContainerContext.Provider value={wrapper}>
+            {children}
+          </PortalContainerContext.Provider>
         </div>
       ) : (
         children

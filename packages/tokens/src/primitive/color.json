@@ -189,6 +189,15 @@
         "$value": "#450a0a"
       },
       "$description": "Danger ramp"
+    },
+    "black-alpha": {
+      "$description": "Black with alpha, for scrims/overlays",
+      "50": {
+        "$value": "#00000080"
+      },
+      "70": {
+        "$value": "#000000b3"
+      }
     }
   }
 }

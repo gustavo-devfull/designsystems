@@ -34,7 +34,7 @@ describe("cn", () => {
     );
     same(tokenScales.spacing, [
       ...suffixes("spacing.").filter((n) => ["xs", "sm", "md", "lg", "xl", "2xl"].includes(n)),
-      ...suffixes("size.control.").map((n) => `control-${n}`),
+      ...suffixes("size.").map((n) => n.replace(".", "-")),
     ]);
   });
 });

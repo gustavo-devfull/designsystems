@@ -12,6 +12,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       external: [
+        /^@radix-ui\//,
         /^react($|\/)/,
         /^react-dom($|\/)/,
         "class-variance-authority",

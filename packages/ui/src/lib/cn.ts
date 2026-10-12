@@ -7,7 +7,20 @@ import { extendTailwindMerge } from "tailwind-merge";
  */
 export const tokenScales = {
   text: ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl"],
-  spacing: ["xs", "sm", "md", "lg", "xl", "2xl", "control-sm", "control-md", "control-lg"],
+  spacing: [
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "2xl",
+    "control-sm",
+    "control-md",
+    "control-lg",
+    "dialog-sm",
+    "dialog-md",
+    "dialog-lg",
+  ],
   radius: ["control", "surface", "pill"],
   shadow: ["low", "mid", "high"],
   fontWeight: ["regular", "medium", "semibold", "bold"],

@@ -1,0 +1,60 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../../../packages/ui/src/components/Tooltip/Tooltip.stories";
+import { DoDont } from "../docs/DoDont";
+
+<Meta of={Stories} />
+
+# Tooltip
+
+Descrição curta e **complementar** de um controle, exibida ao passar o mouse **ou ao focar pelo teclado**.
+
+<Canvas of={Stories.Default} />
+
+## Usage
+
+```tsx
+<Tooltip content="Criar novo projeto">
+  <IconButton aria-label="Adicionar">
+    <PlusIcon />
+  </IconButton>
+</Tooltip>
+```
+
+O filho precisa ser **um único elemento focável** (Button, IconButton, link). Opcionalmente, envolva o app com `TooltipProvider` para compartilhar o atraso entre tooltips.
+
+## API
+
+<Controls of={Stories.Default} />
+
+## Variações
+
+<Canvas of={Stories.OnIconButton} />
+<Canvas of={Stories.Sides} />
+<Canvas of={Stories.Open} />
+<Canvas of={Stories.LongContent} />
+<Canvas of={Stories.DarkTheme} />
+
+## Accessibility
+
+- Abre no **hover e no foco de teclado**; **Esc** fecha sem mover o foco; permanece enquanto o ponteiro está sobre o gatilho **ou sobre o próprio tooltip** (WCAG 1.4.13: dispensável, "hoverável" e persistente).
+- `role="tooltip"` e `aria-describedby` no gatilho: **descreve**, não dá nome. Controles só com ícone continuam precisando de `aria-label`.
+- **Nunca** coloque conteúdo interativo (links, botões) em um tooltip; use um `Popover`/`Dialog`.
+- Não esconda informação essencial em tooltips: em telas de toque não há hover. Use texto visível.
+- Contraste: `text.inverse` sobre `background.inverse`, validado nos tokens.
+
+## Do & Don't
+
+<DoDont
+  doExample={<span className="text-sm">Ícone de lixeira → "Excluir arquivo"</span>}
+  doText="Complemente com uma explicação curta."
+  dontExample={
+    <span className="text-sm">
+      Tooltip: "Clique aqui para <a href="#">saber mais</a>"
+    </span>
+  }
+  dontText="Conteúdo interativo não é alcançável de forma confiável."
+/>
+
+## Design tokens utilizados
+
+`background.inverse`, `text.inverse`, `radius.control`, `elevation.mid`, `size.dialog.sm` (largura máxima).
