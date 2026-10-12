@@ -129,9 +129,9 @@ describe("Button", () => {
 
     it("keeps the label mounted (hidden) so dimensions stay stable", () => {
       const { rerender } = render(<Button>Save changes</Button>);
-      expect(screen.getByText("Save changes")).not.toHaveClass("opacity-0");
+      expect(screen.getByText("Save changes").parentElement).not.toHaveClass("opacity-0");
       rerender(<Button loading>Save changes</Button>);
-      expect(screen.getByText("Save changes")).toHaveClass("opacity-0");
+      expect(screen.getByText("Save changes").parentElement).toHaveClass("opacity-0");
     });
 
     it("blocks onClick and form submission", async () => {

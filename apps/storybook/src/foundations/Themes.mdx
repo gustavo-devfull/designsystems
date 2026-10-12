@@ -1,0 +1,31 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ThemePreview } from "../docs/ThemePreview";
+
+<Meta title="Foundations/Themes" />
+
+# Themes
+
+Light e Dark são _modes_ dos semantic tokens. Componentes não duplicam estilos por tema: só as variáveis CSS mudam.
+
+<ThemePreview />
+
+## Como funciona
+
+```css
+:root,
+[data-theme="light"] {
+  --ds-color-background-primary: var(--ds-color-white);
+}
+[data-theme="dark"] {
+  --ds-color-background-primary: var(--ds-color-gray-950);
+}
+```
+
+- `ThemeProvider` define `data-theme` (seguindo o sistema por padrão) e persiste a escolha.
+- Os temas podem ser **aninhados**: tokens de componente são redeclarados em cada `[data-theme]` e as classes do Tailwind usam `@theme inline`, então um painel escuro dentro de uma página clara resolve corretamente.
+
+## Adicionar uma marca
+
+1. Criar `semantic/color.brand-a.json` com as mesmas chaves dos modos existentes.
+2. Registrar o tema em `THEMES` (`packages/tokens/build/config.ts`).
+3. Rodar `pnpm tokens:build`. Nenhum componente muda.

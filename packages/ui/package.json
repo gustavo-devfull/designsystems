@@ -46,6 +46,8 @@
   },
   "devDependencies": {
     "@design-system/tokens": "workspace:*",
+    "@design-system/icons": "workspace:*",
+    "@storybook/react-vite": "catalog:",
     "@tailwindcss/cli": "catalog:",
     "@testing-library/dom": "catalog:",
     "@testing-library/jest-dom": "catalog:",
@@ -58,6 +60,7 @@
     "jsdom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "storybook": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

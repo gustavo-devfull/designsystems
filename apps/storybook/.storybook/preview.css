@@ -1,0 +1,30 @@
+/*
+ * Storybook uses the library's own stylesheet entry (tokens + Tailwind theme + utilities),
+ * plus @source so utilities used by stories and docs components are generated too.
+ */
+@import "../../../packages/ui/src/styles.css";
+
+@source "../../../packages/ui/src";
+@source "../../../packages/icons/src";
+@source "../src";
+
+body {
+  background: var(--ds-color-background-primary);
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-family-sans);
+}
+
+/* Make the Docs canvas follow the active design-system theme. */
+.sbdocs-wrapper,
+.sbdocs.sbdocs-preview,
+.docs-story {
+  background: var(--ds-color-background-primary);
+}
+.sbdocs-content,
+.sbdocs-content :is(h1, h2, h3, h4, p, li, td, th, label) {
+  color: var(--ds-color-text-primary);
+}
+.sbdocs-content :is(table, tr, td, th) {
+  border-color: var(--ds-color-border-default);
+  background: transparent;
+}

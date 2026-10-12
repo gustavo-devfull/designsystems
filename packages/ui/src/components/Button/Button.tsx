@@ -55,13 +55,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           <Spinner size={size === "lg" ? "md" : "sm"} />
         </span>
       ) : null}
-      <span className={cn("inline-flex items-center gap-sm", loading && "opacity-0")}>
+      <span className={cn("inline-flex min-w-0 items-center gap-sm", loading && "opacity-0")}>
         {leftIcon ? (
           <span aria-hidden="true" className="inline-flex shrink-0">
             {leftIcon}
           </span>
         ) : null}
-        {children}
+        <span className="min-w-0 truncate">{children}</span>
         {rightIcon ? (
           <span aria-hidden="true" className="inline-flex shrink-0">
             {rightIcon}

@@ -12,8 +12,8 @@
   "scripts": {
     "tokens:build": "pnpm --filter @design-system/tokens build",
     "build": "pnpm -r --workspace-concurrency=1 --filter './packages/*' build",
-    "dev": "pnpm --filter @design-system/storybook dev",
-    "build-storybook": "pnpm --filter @design-system/storybook build",
+    "dev": "pnpm tokens:build && pnpm --filter @design-system/storybook dev",
+    "build-storybook": "pnpm tokens:build && pnpm --filter @design-system/storybook build",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "typecheck": "pnpm -r typecheck",

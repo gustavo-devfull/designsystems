@@ -4,5 +4,31 @@
   "version": "0.0.0",
   "type": "module",
   "description": "Storybook: primary documentation environment. Consumes @sette/ui.",
-  "scripts": {}
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build -o storybook-static",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@design-system/icons": "workspace:*",
+    "@design-system/tokens": "workspace:*",
+    "@sette/ui": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/addon-themes": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "remark-gfm": "catalog:",
+    "storybook": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
 }

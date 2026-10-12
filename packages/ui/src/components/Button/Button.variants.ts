@@ -6,8 +6,9 @@ import { cva } from "class-variance-authority";
  */
 export const buttonVariants = cva(
   [
-    "relative inline-flex shrink-0 items-center justify-center select-none whitespace-nowrap",
-    "rounded-control font-medium",
+    "relative inline-flex max-w-full shrink-0 items-center justify-center select-none whitespace-nowrap",
+    // No preflight in this library: neutralise the UA button border/font explicitly.
+    "rounded-control border border-solid border-transparent font-sans font-medium",
     "transition-colors",
     "outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2",
     "disabled:cursor-not-allowed aria-busy:cursor-progress",
@@ -31,7 +32,7 @@ export const buttonVariants = cva(
           "disabled:bg-button-background-disabled disabled:text-button-text-disabled",
         ],
         outline: [
-          "border border-button-border-outline bg-button-background-outline text-button-text-outline",
+          "border-button-border-outline bg-button-background-outline text-button-text-outline",
           "hover:bg-button-background-outline-hover active:bg-button-background-outline-active",
           "disabled:border-button-border-disabled disabled:bg-button-background-outline disabled:text-button-text-disabled",
         ],
