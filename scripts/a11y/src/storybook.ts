@@ -107,13 +107,14 @@ export async function sweepStorybook(opts: {
     page.on("pageerror", onError);
     try {
       await page.goto(
-        `${opts.baseUrl}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`,
-        {
-          waitUntil: "load",
-        },
+        `${opts.baseUrl}/iframe.html?id=${story.id}&viewMode=${kind}&globals=theme:${theme}`,
+        { waitUntil: "load" },
       );
-      const storyError = await waitForStory(page);
-      const violations = storyError ? [] : await runAxe(page, COMPONENT_RULES_OFF);
+      // Docs pages are smoke-checked only (they must render without errors): their surrounding UI
+      // is Storybook's own, so axe there would report Storybook, not this design system.
+      const storyError = kind === "docs" ? await waitForDocs(page) : await waitForStory(page);
+      const violations =
+        storyError || kind === "docs" ? [] : await runAxe(page, COMPONENT_RULES_OFF);
       const error =
         storyError ?? (pageErrors.length > 0 ? `Uncaught: ${pageErrors[0]}` : undefined);
       return {

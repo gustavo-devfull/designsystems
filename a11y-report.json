@@ -375,17 +375,7 @@
       "target": "storybook",
       "name": "Components/IconButton / Icons",
       "theme": "light",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI",
-          "target": "button[aria-label=\"Search\"]",
-          "detail": "Text inside the element is not included in the accessible name",
-          "nodes": 1
-        }
-      ]
+      "violations": []
     },
     {
       "target": "storybook",
@@ -752,6 +742,195 @@
       "name": "Patterns/Sign-up form / Success",
       "theme": "light",
       "violations": []
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Introduction (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Design ↔ Code (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Colors (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Typography (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Spacing (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Radius (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Shadows (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Tokens (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Themes (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Icons (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Alert (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Avatar (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Badge (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Button (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Card (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Checkbox (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Dialog (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Divider (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/IconButton (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Input (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Radio (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Select (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Spinner (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Switch (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Tabs (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Textarea (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Tooltip (docs page)",
+      "theme": "light",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
     },
     {
       "target": "storybook",
@@ -1123,17 +1302,7 @@
       "target": "storybook",
       "name": "Components/IconButton / Icons",
       "theme": "dark",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI",
-          "target": "button[aria-label=\"Search\"]",
-          "detail": "Text inside the element is not included in the accessible name",
-          "nodes": 1
-        }
-      ]
+      "violations": []
     },
     {
       "target": "storybook",
@@ -1500,6 +1669,195 @@
       "name": "Patterns/Sign-up form / Success",
       "theme": "dark",
       "violations": []
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Introduction (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Design ↔ Code (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Colors (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Typography (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Spacing (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Radius (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Shadows (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Tokens (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Themes (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Foundations/Icons (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Alert (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Avatar (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Badge (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Button (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Card (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Checkbox (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Dialog (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Divider (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/IconButton (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Input (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Radio (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Select (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Spinner (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Switch (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Tabs (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Textarea (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
+    },
+    {
+      "target": "storybook",
+      "name": "Components/Tooltip (docs page)",
+      "theme": "dark",
+      "violations": [],
+      "error": "Timed out waiting for the story (and its play function) to finish rendering."
     }
   ]
 }
