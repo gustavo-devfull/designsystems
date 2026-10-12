@@ -16,8 +16,11 @@ export default tseslint.config(
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
     },
   },
+  // node:test's describe/it return promises that the runner tracks itself.
+  { files: ["**/*.test.ts"], rules: { "@typescript-eslint/no-floating-promises": "off" } },
   {
     files: ["**/*.{ts,tsx}"],
     plugins: { "react-hooks": reactHooks, "jsx-a11y": jsxA11y },

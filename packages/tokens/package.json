@@ -7,14 +7,29 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "main": "./dist/tokens.js",
+  "types": "./dist/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./src/*": "./src/*"
+  },
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "typecheck": "tsc -p tsconfig.json"
+    "validate": "node build/validate.ts",
+    "build": "pnpm validate && node build/build.ts && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "pnpm build && node --test build/*.test.ts"
   },
   "devDependencies": {
+    "@types/node": "^22.18.0",
     "style-dictionary": "catalog:",
     "typescript": "catalog:"
   }

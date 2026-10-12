@@ -1,0 +1,31 @@
+{
+  "input": {
+    "$description": "Component tokens shared by Input, Textarea and Select.",
+    "background": {
+      "$type": "color",
+      "default": { "$value": "{color.background.primary}" },
+      "disabled": { "$value": "{color.background.disabled}" }
+    },
+    "text": {
+      "$type": "color",
+      "default": { "$value": "{color.text.primary}" },
+      "placeholder": { "$value": "{color.text.placeholder}" },
+      "disabled": { "$value": "{color.text.disabled}" }
+    },
+    "border": {
+      "$type": "color",
+      "default": { "$value": "{color.border.input}" },
+      "focus": { "$value": "{color.focus.ring}" },
+      "error": { "$value": "{color.feedback.error.$root}" },
+      "disabled": { "$value": "{color.border.default}" }
+    },
+    "radius": { "$type": "dimension", "$value": "{radius.control}" },
+    "height": {
+      "$type": "dimension",
+      "sm": { "$value": "{size.control.sm}" },
+      "md": { "$value": "{size.control.md}" },
+      "lg": { "$value": "{size.control.lg}" }
+    },
+    "padding-x": { "$type": "dimension", "$value": "{spacing.md}" }
+  }
+}
