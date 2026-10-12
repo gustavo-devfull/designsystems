@@ -1,0 +1,8 @@
+{
+  "name": "@design-system/figma-sync",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Figma Variables → DTCG sync layer (fetch, convert, validate, build).",
+  "scripts": {}
+}

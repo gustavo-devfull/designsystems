@@ -1,0 +1,35 @@
+{
+  "name": "design-system",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Sette Design System monorepo: Figma Variables → tokens → Tailwind → React components.",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "tokens:build": "pnpm --filter @design-system/tokens build",
+    "build": "pnpm -r --workspace-concurrency=1 --filter './packages/*' build",
+    "dev": "pnpm --filter @design-system/storybook dev",
+    "build-storybook": "pnpm --filter @design-system/storybook build",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "a11y": "pnpm --filter @sette/ui test:a11y",
+    "figma:sync": "pnpm --filter @design-system/figma-sync sync",
+    "clean": "pnpm -r exec rm -rf dist .turbo coverage"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-jsx-a11y": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "globals": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

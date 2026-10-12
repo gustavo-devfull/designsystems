@@ -1,0 +1,21 @@
+{
+  "name": "@design-system/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens (DTCG) and Style Dictionary pipeline. Source of truth for CSS variables, TS and JSON outputs.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "style-dictionary": "catalog:",
+    "typescript": "catalog:"
+  }
+}
