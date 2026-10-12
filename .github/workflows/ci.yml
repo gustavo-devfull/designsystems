@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A newer push to the same ref supersedes a running pipeline.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Each job builds the workspace packages exactly once (explicit step below); the pre* hooks that
+  # make `pnpm lint|typecheck|test` self-sufficient on a developer machine would rebuild them.
+  npm_config_enable_pre_post_scripts: "false"
+  # Browsers are installed explicitly (and cached) only in the job that needs one.
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+jobs:
+  # ── 1. Static checks and tests ─────────────────────────────────────────────────────────────
+  check:
+    name: Lint · Typecheck · Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4 # version comes from "packageManager"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Type-aware ESLint, tsc and the app/tests import the *built* packages (types in dist/).
+      - name: Build workspace packages (tokens → icons → ui)
+        run: pnpm build:packages
+      - name: Lint (ESLint + Prettier)
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Test (Vitest + Testing Library + axe, tokens, a11y gate logic)
+        run: pnpm test
+
+  # ── 2. Build everything that ships or is published for review ─────────────────────────────
+  build:
+    name: Build packages · playground · Storybook
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build packages and playground
+        run: pnpm build
+      - name: Build Storybook
+        run: pnpm build-storybook
+      - name: Upload static sites for the accessibility gate
+        uses: actions/upload-artifact@v4
+        with:
+          name: sites
+          path: |
+            apps/storybook/storybook-static
+            apps/playground/dist
+          retention-days: 7
+
+  # ── 3. Accessibility gate (real browser, axe-core, WCAG 2.2 AA) ────────────────────────────
+  a11y:
+    name: Accessibility (axe · all stories · light + dark)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile --filter @design-system/a11y...
+      - uses: actions/download-artifact@v4
+        with:
+          name: sites
+          path: apps
+      - name: Cache Playwright browsers
+        id: browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Chromium
+        run: pnpm --filter @design-system/a11y exec playwright install --with-deps chromium
+      - name: Run the gate (fails on serious/critical violations or broken stories)
+        run: pnpm --filter @design-system/a11y sweep --out "$GITHUB_WORKSPACE/a11y-report.json"
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report
+          path: a11y-report.json
+
+  # ── 4. Single required status check ──────────────────────────────────────────────────────
+  ci-success:
+    name: CI success
+    if: always()
+    needs: [check, build, a11y]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify every job succeeded
+        run: |
+          echo "check=${{ needs.check.result }} build=${{ needs.build.result }} a11y=${{ needs.a11y.result }}"
+          test "${{ needs.check.result }}" = "success"
+          test "${{ needs.build.result }}" = "success"
+          test "${{ needs.a11y.result }}" = "success"

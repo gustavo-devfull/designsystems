@@ -19,13 +19,14 @@
     "format": "prettier --write .",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "a11y": "pnpm --filter @sette/ui test:a11y",
+    "a11y": "pnpm build && pnpm build-storybook && pnpm --filter @design-system/a11y sweep",
     "figma:sync": "pnpm --filter @design-system/figma-sync sync",
     "clean": "pnpm -r exec rm -rf dist .turbo coverage",
     "pretypecheck": "pnpm build:packages",
     "pretest": "pnpm build:packages",
     "build:packages": "pnpm -r --workspace-concurrency=1 --filter './packages/*' build",
-    "playground": "pnpm build:packages && pnpm --filter @design-system/playground dev"
+    "playground": "pnpm build:packages && pnpm --filter @design-system/playground dev",
+    "a11y:unit": "pnpm -r test:a11y"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

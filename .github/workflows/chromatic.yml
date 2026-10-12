@@ -1,0 +1,39 @@
+name: Chromatic (visual regression)
+
+# Prepared, NOT active. To enable:
+#   1. Create a Chromatic project and add the secret CHROMATIC_PROJECT_TOKEN.
+#   2. Add the repository variable CHROMATIC_ENABLED=true.
+#   3. Replace `workflow_dispatch` with `pull_request` (and optionally `push` to main).
+# Until then this workflow can only be started manually and does nothing without the variable.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chromatic:
+    name: Publish Storybook to Chromatic
+    if: ${{ vars.CHROMATIC_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      npm_config_enable_pre_post_scripts: "false"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic needs history for TurboSnap / baseline detection
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: apps/storybook
+          buildScriptName: build
+          onlyChanged: true # TurboSnap: only stories affected by the change
+          exitOnceUploaded: true # visual review is a separate (non-blocking) check

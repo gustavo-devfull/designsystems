@@ -1,0 +1,125 @@
+{
+  "failOn": "serious",
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "results": [
+    {
+      "target": "playground",
+      "name": "Overview",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Team tab",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Settings tab",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Settings with validation errors",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Invite dialog open",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Invite dialog with errors",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Delete dialog open",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Tooltip open",
+      "theme": "light",
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/region?application=axeAPI",
+          "target": "div[data-radix-popper-content-wrapper=\"\"]",
+          "detail": "Some page content is not contained by landmarks",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "target": "playground",
+      "name": "Overview",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Team tab",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Settings tab",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Settings with validation errors",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Invite dialog open",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Invite dialog with errors",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Delete dialog open",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "target": "playground",
+      "name": "Tooltip open",
+      "theme": "dark",
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/region?application=axeAPI",
+          "target": "div[data-radix-popper-content-wrapper=\"\"]",
+          "detail": "Some page content is not contained by landmarks",
+          "nodes": 1
+        }
+      ]
+    }
+  ]
+}

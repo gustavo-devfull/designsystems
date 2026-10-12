@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      storybook:
+        patterns: ["storybook", "@storybook/*"]
+      radix:
+        patterns: ["@radix-ui/*"]
+      tailwind:
+        patterns: ["tailwindcss", "@tailwindcss/*"]
+      testing:
+        patterns: ["vitest*", "@testing-library/*", "jsdom", "axe-core", "playwright"]
+    open-pull-requests-limit: 5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
