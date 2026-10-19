@@ -4,7 +4,7 @@ packages:
   - scripts/*
 
 catalog:
-  "@changesets/cli": ^2.29.7
+  "@changesets/cli": ^3.0.3
   "@arethetypeswrong/cli": ^0.18.2
   publint: ^0.3.12
   esbuild: ^0.25.9
